@@ -1,0 +1,18 @@
+{
+  "member": "E",
+  "attempts": 20,
+  "cells": 20,
+  "sha256": {
+    "state-E.jsonl": "d050c280e16c6aa1dbf025fb31fe0d7430d59343d14f7db1f2a71f709b4e4f46",
+    "traces-E.csv": "9e2b33a8d3ade4dc77e2cddf9bffb481b59a2e4f9903781ab52880fa291deb51"
+  },
+  "checks": [
+    "CSV/JSONL equality",
+    "assigned model",
+    "real nature",
+    "prompt/reference",
+    "duplicate conflicts",
+    "local SQL judgement"
+  ],
+  "origin": "https://github.com/NourMouhassin/Next-G-n-rationIA/pull/1 ; commit 14150ae"
+}

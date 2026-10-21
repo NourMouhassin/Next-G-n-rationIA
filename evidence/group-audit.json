@@ -1,0 +1,95 @@
+{
+  "received": [
+    {
+      "member": "A",
+      "attempts": 20,
+      "cells": 20,
+      "sha256": {
+        "state-A.jsonl": "844b045d3486365b54f03e6644d25c99449459eafe5f5a2ddb31c430dcca36e7",
+        "traces-A.csv": "b0c676ae2b2ebff97894e6a068d5be197fa0078e217497bb6f2be13c696962e5"
+      },
+      "checks": [
+        "CSV/JSONL equality",
+        "assigned model",
+        "real nature",
+        "prompt/reference",
+        "duplicate conflicts",
+        "local SQL judgement"
+      ]
+    },
+    {
+      "member": "B",
+      "attempts": 20,
+      "cells": 20,
+      "sha256": {
+        "state-B.jsonl": "2285f6b19cff8f59e4141599476bef6c3223e6dc503d6eab29e5051a1721eae0",
+        "traces-B.csv": "a4e1701c46b0b17521db36996ee6184e61cdf23bba3a72be6036ea048808db90"
+      },
+      "checks": [
+        "CSV/JSONL equality",
+        "assigned model",
+        "real nature",
+        "prompt/reference",
+        "duplicate conflicts",
+        "local SQL judgement"
+      ]
+    },
+    {
+      "member": "C",
+      "attempts": 20,
+      "cells": 20,
+      "sha256": {
+        "state-C.jsonl": "6175b30e4b00d0f0e23f3620daf2fe2875fd23f964bd2731ed344e1869367598",
+        "traces-C.csv": "c1d53e63f8ffbeff5d09f06d39dcf910c291859db5b26da1a96b7f34bcd40b8f"
+      },
+      "checks": [
+        "CSV/JSONL equality",
+        "assigned model",
+        "real nature",
+        "prompt/reference",
+        "duplicate conflicts",
+        "local SQL judgement"
+      ]
+    },
+    {
+      "member": "D",
+      "attempts": 24,
+      "cells": 20,
+      "sha256": {
+        "state-D.jsonl": "d77ea9d0ae8ad5c16b8c37e57147957b2200835abdd7ef6eb16cc86b7d8ff879",
+        "traces-D.csv": "5b26ffbeb388f41672fa52ca097353b5c9814e142a21a5a19f83d30c219aa83d"
+      },
+      "checks": [
+        "CSV/JSONL equality",
+        "assigned model",
+        "real nature",
+        "prompt/reference",
+        "duplicate conflicts",
+        "local SQL judgement"
+      ]
+    },
+    {
+      "member": "E",
+      "attempts": 20,
+      "cells": 20,
+      "sha256": {
+        "state-E.jsonl": "d050c280e16c6aa1dbf025fb31fe0d7430d59343d14f7db1f2a71f709b4e4f46",
+        "traces-E.csv": "9e2b33a8d3ade4dc77e2cddf9bffb481b59a2e4f9903781ab52880fa291deb51"
+      },
+      "checks": [
+        "CSV/JSONL equality",
+        "assigned model",
+        "real nature",
+        "prompt/reference",
+        "duplicate conflicts",
+        "local SQL judgement"
+      ]
+    }
+  ],
+  "main_experiment_attempts": 104,
+  "archived_incident_attempts": 40,
+  "all_recorded_attempts": 144,
+  "final_cells": 100,
+  "human_review_F": "pending",
+  "metadata_caution": "Operator declarations are not independently verified; missing quotas stay unknown."
+}

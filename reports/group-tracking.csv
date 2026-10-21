@@ -1,0 +1,8 @@
+member_name,role,model,completed_cells,received_files,checks,github,missing
+,A,groq:openai/gpt-oss-120b,20,runs/state-A.jsonl; runs/traces-A.csv,CSV/JSONL; SHA256; prompts; references; SQL replay,origin/main commit 196005d,F human cross-check; protocol incident clarification ; operator identity/quotas/account evidence
+,B,groq:openai/gpt-oss-20b,20,runs/state-B.jsonl; runs/traces-B.csv,CSV/JSONL; SHA256; prompts; references; SQL replay,origin/main commit 196005d,F human cross-check; protocol incident clarification ; operator identity/quotas/account evidence
+,C,openrouter:cohere/north-mini-code:free,20,runs/state-C.jsonl; runs/traces-C.csv,CSV/JSONL; SHA256; prompts; references; SQL replay,origin/main commit 196005d,F human cross-check; protocol incident clarification ; operator identity/quotas/account evidence
+,D,groq:qwen/qwen3.8-27b,19,runs/state-D.jsonl; runs/traces-D.csv,CSV/JSONL; SHA256; prompts; references; SQL replay,origin/main commit 196005d,F human cross-check; protocol incident clarification ; operator identity/quotas/account evidence
+Mathias Silvert--Lis,E,openrouter:dots-studio/dots-3-note-preview:free,20,runs/state-E.jsonl; runs/traces-E.csv,CSV/JSONL; SHA256; prompts; references; SQL replay,"PR #1 reviewed; files imported on G, PR not merged","F human cross-check; protocol incident clarification ; E declarations supplied by PR, not independently verified"
+,F,,,,,No F evidence received,Named human review of C01-C20 and actual contribution
+,G,,,A-E,Consolidation and offline checks,td1/role-G,Name; final sign-off after F and incident clarification

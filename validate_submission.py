@@ -15,6 +15,7 @@ def main():
         ['test_td1.py'],
         ['sandbox_sqlite.py','--db','data/boutique.sqlite','--out','evidence/sandbox-tests.json'],
         ['verify-data.py'],
+        ['group_status.py'],
     ]
     for i, args in enumerate(commands,1):
         result=subprocess.run([sys.executable,*args],cwd=ROOT,text=True,capture_output=True)

@@ -3,3 +3,7 @@
 data/* -text
 schema.sql -text
 docs/development-prompt.txt -text -whitespace
+# Original API text may contain meaningful whitespace; preserve received bytes.
+runs/**/*.jsonl -text -whitespace
+runs/**/*.csv -text -whitespace
+traces-td1.csv -whitespace

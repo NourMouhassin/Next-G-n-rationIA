@@ -1,0 +1,242 @@
+[
+  {
+    "member": "A",
+    "model": "groq:openai/gpt-oss-120b",
+    "attempts": 20,
+    "attempted_cells": 20,
+    "correct": 19,
+    "incorrect": 1,
+    "sql_invalid": 0,
+    "sql_rejected": 0,
+    "access_error": 0,
+    "not_executed": 0,
+    "correct_per_20": "19/20",
+    "latency_ms": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 17304.0,
+      "mean": 865.2,
+      "median": 739.3
+    },
+    "tokens_prompt": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 12814.0,
+      "mean": 640.7,
+      "median": 638.0
+    },
+    "tokens_completion": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 4576.0,
+      "mean": 228.8,
+      "median": 183.0
+    },
+    "tokens_reasoning": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 2511.0,
+      "mean": 125.55,
+      "median": 85.0
+    },
+    "cost_native": {
+      "observed": 0,
+      "missing": 20,
+      "sum": null,
+      "mean": null,
+      "median": null
+    }
+  },
+  {
+    "member": "B",
+    "model": "groq:openai/gpt-oss-20b",
+    "attempts": 20,
+    "attempted_cells": 20,
+    "correct": 18,
+    "incorrect": 2,
+    "sql_invalid": 0,
+    "sql_rejected": 0,
+    "access_error": 0,
+    "not_executed": 0,
+    "correct_per_20": "18/20",
+    "latency_ms": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 14826.5,
+      "mean": 741.325,
+      "median": 627.85
+    },
+    "tokens_prompt": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 12814.0,
+      "mean": 640.7,
+      "median": 638.0
+    },
+    "tokens_completion": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 5027.0,
+      "mean": 251.35,
+      "median": 205.0
+    },
+    "tokens_reasoning": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 2966.0,
+      "mean": 148.3,
+      "median": 94.5
+    },
+    "cost_native": {
+      "observed": 0,
+      "missing": 20,
+      "sum": null,
+      "mean": null,
+      "median": null
+    }
+  },
+  {
+    "member": "C",
+    "model": "openrouter:cohere/north-mini-code:free",
+    "attempts": 20,
+    "attempted_cells": 20,
+    "correct": 11,
+    "incorrect": 9,
+    "sql_invalid": 0,
+    "sql_rejected": 0,
+    "access_error": 0,
+    "not_executed": 0,
+    "correct_per_20": "11/20",
+    "latency_ms": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 59606.3,
+      "mean": 2980.315,
+      "median": 2093.9
+    },
+    "tokens_prompt": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 11194.0,
+      "mean": 559.7,
+      "median": 557.0
+    },
+    "tokens_completion": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 2714.0,
+      "mean": 135.7,
+      "median": 101.0
+    },
+    "tokens_reasoning": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "cost_native": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    }
+  },
+  {
+    "member": "D",
+    "model": "groq:qwen/qwen3.8-27b",
+    "attempts": 24,
+    "attempted_cells": 20,
+    "correct": 15,
+    "incorrect": 4,
+    "sql_invalid": 0,
+    "sql_rejected": 0,
+    "access_error": 0,
+    "not_executed": 1,
+    "correct_per_20": "15/20",
+    "latency_ms": {
+      "observed": 24,
+      "missing": 0,
+      "sum": 10284.4,
+      "mean": 428.51666666666665,
+      "median": 410.20000000000005
+    },
+    "tokens_prompt": {
+      "observed": 19,
+      "missing": 5,
+      "sum": 11978.0,
+      "mean": 630.421052631579,
+      "median": 630.0
+    },
+    "tokens_completion": {
+      "observed": 19,
+      "missing": 5,
+      "sum": 2586.0,
+      "mean": 136.10526315789474,
+      "median": 111.0
+    },
+    "tokens_reasoning": {
+      "observed": 0,
+      "missing": 24,
+      "sum": null,
+      "mean": null,
+      "median": null
+    },
+    "cost_native": {
+      "observed": 0,
+      "missing": 24,
+      "sum": null,
+      "mean": null,
+      "median": null
+    }
+  },
+  {
+    "member": "E",
+    "model": "openrouter:dots-studio/dots-3-note-preview:free",
+    "attempts": 20,
+    "attempted_cells": 20,
+    "correct": 13,
+    "incorrect": 6,
+    "sql_invalid": 1,
+    "sql_rejected": 0,
+    "access_error": 0,
+    "not_executed": 0,
+    "correct_per_20": "13/20",
+    "latency_ms": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 66080.0,
+      "mean": 3304.0,
+      "median": 2896.65
+    },
+    "tokens_prompt": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 11858.0,
+      "mean": 592.9,
+      "median": 593.0
+    },
+    "tokens_completion": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 3469.0,
+      "mean": 173.45,
+      "median": 117.5
+    },
+    "tokens_reasoning": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    },
+    "cost_native": {
+      "observed": 20,
+      "missing": 0,
+      "sum": 0.0,
+      "mean": 0.0,
+      "median": 0.0
+    }
+  }
+]

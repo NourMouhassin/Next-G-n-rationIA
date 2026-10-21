@@ -1,6 +1,6 @@
 {
-  "python_version": "3.12.7",
-  "sqlite_version": "3.45.3",
+  "python_version": "3.12.10",
+  "sqlite_version": "3.49.1",
   "files": [
     {
       "file": "data/boutique.sqlite",

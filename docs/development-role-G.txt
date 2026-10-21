@@ -1,0 +1,116 @@
+Je suis maintenant officiellement responsable du **rôle G : coordinateur, consolidation et rapport final** du TD1 Next-Generation AI à l'ESILV.
+
+Nous sommes 7 étudiants, répartis entre les rôles A, B, C, D, E, F et G.
+
+J'ai déjà envoyé aux six autres étudiants leurs instructions. Ils travaillent sur leurs lots avec leurs propres IA.
+
+**Notre GitHub :**
+https://github.com/NourMouhassin/Next-G-n-rationIA
+
+**Dossier de travail :**
+`C:\Users\ilyes\OneDrive\Bureau\Esilv_Cours\Semestre1_A4\nextgenerationai\kit-td1`
+
+Le dépôt du rendu est dans `submission`. Mon environnement Python 3.12.10 est dans `kit-td1\.venv`.
+
+## TA MISSION
+
+Tu es mon assistant technique pour le rôle G. Je veux que tu réalises directement dans VS Code tout le travail de coordination, de consolidation, d'analyse et de documentation possible, sans attendre inutilement.
+
+**Ne relance aucun appel API.** Les étudiants A à E sont responsables de ces appels.
+
+### PHASE 1 — À FAIRE IMMÉDIATEMENT
+
+1. Examiner le dépôt GitHub, les scripts, les consignes officielles et le dernier commit.
+
+2. Vérifier les branches Git, le remote, les modifications locales et les Pull Requests existantes. Préparer une branche `td1/role-G`, sans écraser les contributions du groupe.
+
+3. Contrôler les livrables existants et identifier précisément ce qui est terminé ou manquant.
+
+4. Corriger `reports/contributions.csv` pour prévoir exactement 7 membres, A à G. Ne pas inventer leurs noms ou leurs travaux.
+
+5. Préparer `allocation.json` pour les cinq opérateurs, sans inventer leurs quotas, leurs identités ou leurs confirmations.
+
+6. Préparer un document simple de suivi du groupe avec :
+   - Membre et rôle
+   - Modèle attribué
+   - Expériences terminées
+   - Fichiers reçus
+   - Vérifications effectuées
+   - Statut GitHub
+   - Éléments manquants
+
+7. Vérifier les scripts de consolidation existants et les adapter uniquement si nécessaire, sans changer le protocole expérimental.
+
+8. Tester le pipeline de consolidation hors réseau. Vérifier qu'il accepte les cinq fichiers JSONL d'origine, détecte les doublons et rejette des prompts ou références incompatibles.
+
+9. Vérifier les 20 références SQL et les fichiers déjà préparés.
+
+10. Exécuter les tests hors réseau et `validate_submission.py`.
+
+### PHASE 2 — PRÉPARER L'ARRIVÉE DES RÉSULTATS
+
+Je vais recevoir les résultats des étudiants A à E au fur et à mesure.
+
+Prépare un système d'intégration simple pour que je puisse te transmettre leurs fichiers ou liens GitHub.
+
+Pour chaque lot, il faudra récupérer :
+
+- `runs/state-LETTRE.jsonl`
+- `runs/traces-LETTRE.csv`
+- Les informations réelles de l'opérateur et des quotas
+- La branche ou Pull Request de l'étudiant
+- Les éventuelles erreurs ou cellules non exécutées
+
+L'étudiant F fournira son compte rendu de contre-vérification SQL réellement effectué.
+
+À chaque réception d'un lot :
+
+- Vérifier l'intégrité des fichiers.
+- Contrôler les identifiants des questions et des modèles.
+- Vérifier les empreintes des prompts et références.
+- Conserver les traces originales.
+- Rejeter les doublons conflictuels.
+- Actualiser les comparaisons et le tableau de suivi.
+- Ne jamais inventer de résultats manquants.
+
+Ne fusionne pas les branches des autres membres sans examiner leurs différences.
+
+### PHASE 3 — RAPPORT FINAL
+
+Lorsque les cinq lots seront disponibles, tu devras automatiquement :
+
+1. Consolider les traces réelles avec `td1.py consolidate`.
+2. Générer le tableau comparatif avec `td1.py pivot`.
+3. Actualiser `model-question-comparison-en.csv`.
+4. Actualiser `five-model-summary-en.csv`.
+5. Calculer les taux de réussite et les statistiques par modèle et famille de questions.
+6. Analyser les erreurs SQL et HTTP, en distinguant les causes vérifiées des hypothèses.
+7. Comparer les performances, latences, tokens, coûts et limites lorsque les données sont disponibles.
+8. Finaliser `reports/td1.md` avec une analyse pertinente et les preuves expérimentales.
+9. Mettre à jour le README et le fichier de contributions.
+10. Exécuter `validate_submission.py` et vérifier la reproductibilité.
+11. Vérifier qu'aucune clé API ni donnée confidentielle n'est publiée.
+12. Préparer le commit final et le push GitHub, sans écraser le travail collectif.
+13. Donner le hash complet du commit, le lien du rapport et le texte prêt pour Moodle.
+
+**Important :** les 100 cellules finales ne signifient pas nécessairement 100 appels HTTP exactement, car il peut y avoir des tentatives supplémentaires. Distingue les cellules exécutées, les tentatives réelles et les cellules non exécutées.
+
+N'indique jamais que l'expérience est complète tant qu'elle ne l'est pas. La vérification humaine de F doit également être confirmée.
+
+## MAINTENANT
+
+Commence immédiatement la PHASE 1.
+
+Effectue les modifications et les tests utiles directement dans le projet. Tu peux faire un commit de préparation sur ma branche G.
+
+Ne consomme pas de tokens à recopier tous les fichiers dans la conversation.
+
+À la fin de cette phase, donne-moi simplement :
+
+- Ce qui est terminé.
+- Ce qui attend les étudiants A à F.
+- Les éventuelles erreurs à corriger.
+- Le statut GitHub.
+- Les instructions exactes pour intégrer leur premier lot.
+
+Ensuite, nous passerons à la PHASE 2 dès que je recevrai les premières traces.

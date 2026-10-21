@@ -19,11 +19,11 @@ C17 258180 cents; 40 lines
 C18 62480 cents; 8 lines
 C19 1990 cents; 1 lines
 C20 1106090 cents; 158 lines
-Consolidated 84 attempts; 100 final rows (unrun cells explicitly marked).
+Consolidated 104 attempts; 100 final rows (unrun cells explicitly marked).
 model                                                  C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 C12 C13 C14 C15 C16 C17 C18 C19 C20
 groq:openai/gpt-oss-120b                                OK  OK  OK  OK  OK  OK  OK  OK  OK  OK  OK  OK  OK  OK  WR  OK  OK  OK  OK  OK
 groq:openai/gpt-oss-20b                                 OK  WR  OK  OK  OK  OK  OK  OK  OK  OK  WR  OK  OK  OK  OK  OK  OK  OK  OK  OK
 openrouter:cohere/north-mini-code:free                  OK  WR  OK  OK  OK  OK  OK  WR  WR  WR  WR  OK  OK  OK  WR  OK  WR  WR  WR  OK
 groq:qwen/qwen3.8-27b                                   OK  OK  OK  OK  OK  OK  OK  OK  WR  OK  OK  OK  OK  OK  WR  --  WR  OK  WR  OK
-openrouter:dots-studio/dots-3-note-preview:free         --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+openrouter:dots-studio/dots-3-note-preview:free         OK  WR  OK  OK  OK  OK  OK  WR  WR  WR  WR  OK  OK  OK  OK  OK  SI  WR  OK  OK
 OK correct; WR wrong; SI invalid; SR rejected; AE access error; -- not executed (see explanation).

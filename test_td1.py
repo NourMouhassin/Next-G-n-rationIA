@@ -1,6 +1,7 @@
 """Offline regression tests. Mock answers never enter the experimental files."""
 import json
 import tempfile
+import shutil
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -9,6 +10,38 @@ import td1
 s = td1.s
 
 class OfflineTests(unittest.TestCase):
+    def test_merger_five_files_and_rejections(self):
+        # Synthetic fixtures live only in a temporary directory; never experiment output.
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            (root/'runs').mkdir()
+            shutil.copy2(td1.ROOT/'reference-td1.csv',root/'reference-td1.csv')
+            q=td1.QUESTIONS[0]
+            rows=[]
+            for member,m in zip('ABCDE',td1.CONFIG['modeles']):
+                row=dict(provider=m['gate'],model_requested=m['identifiant_exact'],case_id='C01',
+                         cell_id=f"{m['gate']}:{m['identifiant_exact']}:C01",nature='simulation',
+                         prompt_sha256=s.build_prompt(td1.SCHEMA,q['question'])[2],reference='792800',
+                         attempts=1,date_utc='2026-10-21 00:00:00',value='792800')
+                rows.append(row)
+                (root/'runs'/f'state-{member}.jsonl').write_text(json.dumps(row)+'\n',encoding='utf-8')
+            extra=root/'runs/state-extra.jsonl'
+            with patch.object(td1,'ROOT',root):
+                self.assertEqual(len(td1.load_attempts()),5)
+                extra.write_text(json.dumps(rows[0])+'\n',encoding='utf-8')
+                self.assertEqual(len(td1.load_attempts()),5)  # identical duplicate detected/deduplicated
+                for change in ({'value':'1'},{'prompt_sha256':'bad'},{'reference':'1'}):
+                    extra.write_text(json.dumps(dict(rows[0],**change))+'\n',encoding='utf-8')
+                    with self.assertRaises(AssertionError):
+                        td1.load_attempts()
+
+    def test_received_pairs_and_sql(self):
+        import receive_batch
+        for member in 'ABCDE':
+            if (td1.ROOT/f'runs/state-{member}.jsonl').exists():
+                report=receive_batch.inspect_batch(member,td1.ROOT/'runs')
+                self.assertGreater(report['attempts'],0)
+
     def test_reference_recomputation(self):
         values, _ = td1.ref.csv_totals()
         for i, row in enumerate(td1.ref.read_csv('reference-td1.csv')):

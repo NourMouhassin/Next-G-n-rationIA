@@ -5,25 +5,20 @@ Contributions: [contributions.csv](contributions.csv).
 
 ## Objective and current result
 
-Evaluate five configured free SQL-generating models on twenty fixed e-commerce
-questions against independently checked local references. Currently **20/20 SQL
-references are computed and cross-checked computationally; 80/100 real model cells
-are executed (lots A, B, C, D), 84 real attempts including 4 retries**. Lot E
-(Dots on OpenRouter) is pending, run by a second member's OpenRouter account.
+The five lots A?E are available and locally validated on branch `td1/role-G`.
+The batch contains **100 attempted cells and 104 attempts**, with **76 correct,
+22 incorrect, 1 invalid SQL and 1 without evaluated SQL** (D/C16, two HTTP 429).
+There are 98 scalar SQL results; 99 cells reached SQL judgement including E/C17's
+invalid SQL. This does not mean 100 successful executions. Forty additional 401
+attempts remain in separate incident archives: **144 recorded attempts overall**.
+The 40 incident attempts are not silently discarded or combined into final-cell votes.
 
-| Lot | Model | Correct | Wrong | Not executed | Retries |
-|---|---|---:|---:|---:|---:|
-| A | groq `openai/gpt-oss-120b` | 19 | 1 | 0 | 0 |
-| B | groq `openai/gpt-oss-20b` | 18 | 2 | 0 | 0 |
-| C | openrouter `cohere/north-mini-code:free` | 11 | 9 | 0 | 0 |
-| D | groq `qwen/qwen3.8-27b` | 15 | 4 | 1 | 4 |
-| E | openrouter `dots-studio/dots-3-note-preview:free` | pending | | 20 | |
-
-Counts are on these twenty questions only: no general error rate and no ranking.
-Every wrong answer concerns the **age convention** (age on a reference date or at
-the order); period and product-only questions are 100 % correct for the four models.
-Raw files: `runs/state-A.jsonl` to `runs/state-D.jsonl` and their CSV exports,
-merged in [traces-td1.csv](../traces-td1.csv) / [traces-td1.jsonl](../traces-td1.jsonl).
+[Derived statistics](observed-results.md) give per-model counts and metric coverage;
+[family results](../five-model-summary-en.csv) and [tracking](group-tracking.csv)
+are regenerated from the originals. E was imported from reviewed PR #1 at commit
+`14150ae94d32aeb1db92b2a7f005c62e905de483`, without merging or closing the PR.
+G made **no API calls**. F's human review and complete operator/account/coordination
+metadata have not been received, so the submission is not yet fully validated.
 
 ## R1: executed references and independent checking
 
@@ -108,11 +103,9 @@ which stay empty: a missing measurement, not a zero.
 
 - **Selected trace (R2)**: `groq:qwen/qwen3.8-27b:C18`, [runs/state-D.jsonl](../runs/state-D.jsonl).
   Attempt 1: HTTP 429 "Rate limit reached ... output tokens per minute (OTPM): Limit
-  1000", no SQL, no `Retry-After` header (empty field). Attempt 2 after the
-  temporary-error delay: HTTP 200, value 62480 = reference, verdict correct.
+  1000", no SQL, no persisted `Retry-After` evidence in these original traces (header presence is unknown). Attempt 2 (retry authorization/delay needs operator evidence): HTTP 200, value 62480 = reference, verdict correct.
   Same fingerprint on both lines. C19 and C20 show the same retry pattern; the
-  Qwen output cap (1000 tokens) equals the account's OTPM limit, which explains
-  the 429s. **C16 failed twice** (429 then 429): two attempts reached, cell
+  Qwen output cap (1000 tokens) equals the account's OTPM limit, consistent with the recorded OTPM error; actual usage and headers are not preserved. **C16 failed twice** (429 then 429): two attempts reached, cell
   `not_executed`, not retried further.
 - **Native cost**: Groq returns none, the field stays empty; OpenRouter `:free`
   routes with a zero-price cap.
@@ -125,6 +118,20 @@ which stay empty: a missing measurement, not a zero.
   then C01 to C04 were run in the valid experiment.
 
 ## R3: analysis and model portfolio
+
+With E included, accuracy over the 20 planned questions is A 95%, B 90%, C 55%,
+D 75%, E 65% (76/100 overall, counting invalid/unavailable cells as unsuccessful).
+All five pass the six period and four product-only questions. Differences lie
+in age and combined cases; this small fixed dataset does not establish a general
+model ranking. A has the strongest observed success count, while B is faster
+by recorded median latency (628 ms versus 739 ms). D's 410 ms median includes
+five fast HTTP failures and cannot establish faster successful SQL generation.
+OpenRouter medians are about 2094 ms (C) and 2897 ms (E), with different models
+and routes: these timings do not isolate model capability from serving conditions.
+Native cost is explicitly zero for C/E; Groq native costs are unreported, not zero.
+Token totals have full coverage except D (19/24 attempts); never extrapolate
+its missing five usage records as zero. These are observed metrics, not a TD3
+costing study. Complete per-field denominators are in the generated statistics.
 
 Causes are read from the returned SQL or the HTTP status of the latest attempt,
 written in [td1-causes.csv](td1-causes.csv) and copied by `td1.py consolidate` into
@@ -147,8 +154,7 @@ the `explanation` column of the comparison. Examples:
   return 0 (reference 487980) with different SQL errors (age on the order date;
   age expression never equal to 25).
 
-After importing lot E, use the latest attempt, inspect its original SQL/HTTP
-response and explain the cause in `td1-causes.csv`. A successful HTTP request with wrong SQL is distinct from
+Lot E is imported; its supplied semantic causes are retained in `td1-causes.csv`. All original SQL verdicts were independently re-executed. The cause notes remain subject to group review, distinct from the reproduced verdicts. A successful HTTP request with wrong SQL is distinct from
 an HTTP access denial, where SQL was never evaluated. `finish_reason=length`
 supports a truncation diagnosis; a mere unequal value does not identify which
 convention failed. If the real batch has no failure, request the explicitly
@@ -168,11 +174,11 @@ exact paid routes: GPT-OSS 120B 0.15/0.60, GPT-OSS 20B 0.018/0.09, and Qwen
 0.04/1.35 USD per million input/output tokens. These are catalog prices, not
 experimental costs. Cohere/Dots have only free entries in that snapshot; no
 exact paid route is documented there, so their paid prices are N/A, not zero.
-With twenty questions, the batch supports only a routing hypothesis: period and product-only questions were answered correctly by all four executed models; age questions are where they differ. No ranking or general rate.
+With twenty questions, the batch supports only a routing hypothesis: period and product-only questions were answered correctly by all five models for period/product-only questions; age questions are where they differ. No ranking or general rate.
 
 ## Validation and remaining work
 
-Validation: 20 SQL/CSV equalities, original data hashes, 8 offline regression
+Validation: 20 SQL/CSV equalities, original data hashes, 10 offline regression
 tests and 25 sandbox checks pass. The final checks use the user's `.venv` and
 Python 3.12.10 outside the sandbox. Initial sandbox-only checks used Python 3.15.0:
 the sandbox could not access the installed Python 3.12, which was verified to exist
@@ -182,12 +188,21 @@ missing metrics, output shape and comparison uniqueness. See
 [evidence/validation.json](../evidence/validation.json) and
 [sandbox-tests.json](../evidence/sandbox-tests.json).
 
-Remaining tasks: name group/members and record contributions; obtain human R1
-cross-check; run lot E with a second member's OpenRouter account and import its
-original files; review each observed error; update this
-report and the portfolio results; re-run validation; commit/push the final state
-and personally submit its exact hash and report permalink in Moodle. This partial
-report must not be presented as completion of R2/R3 or all 100 calls.
+Remaining tasks: obtain F's named human review of all twenty references; confirm
+A?D operator identities, quotas and account allocation; confirm the actual coordination
+and explain the recorded overlapping 401 run and retry authorization. E's quota/name
+information is a PR declaration, not an independent account verification. G retained
+E's individual metadata without copying its global confirmations to all operators.
+No reruns are authorized by G. Ask the instructor how to report protocol deviations;
+do not conceal them or claim a fully compliant experiment from the technical tests.
+
+The five lots pass CSV/JSONL equality, question/model identity, prompt/reference
+fingerprints, duplicate checks and local sandbox judgement. SHA-256 records prove
+which bytes were received, not remote API authenticity. The original skeleton did
+not retain all HTTP bodies/headers, so some provenance and retry conditions cannot
+be established from these files alone. No 401 records are overwritten by the valid
+A run. They remain in `runs/failed-access` and are counted separately in
+[evidence/group-audit.json](../evidence/group-audit.json).
 
 ## Declared assistance
 

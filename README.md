@@ -4,10 +4,13 @@ Trustworthy Generative AI, ESILV DIA A4, 21 October 2026.
 Class: DIA4 Sub-group:5. Members and contributions:
 [reports/contributions.csv](reports/contributions.csv).
 
-This is an explicitly **partial** submission: all 20 references are executed and
-independently recomputed from CSV, but **80/100 model cells have been executed (lots A to D, 21 October 2026; lot E pending)**.
-The 20 rows of lot E stay `not_executed` until it runs; causes of the observed errors are in
-[reports/td1-causes.csv](reports/td1-causes.csv). Human R1 cross-check and member names remain pending.
+This remains a **partial, not yet signed-off** submission: 20 checked SQL references,
+100 attempted model cells, 104 main-experiment attempts. There are 76 correct,
+22 incorrect, 1 invalid SQL and 1 cell without evaluated SQL. Forty additional
+401 attempts are preserved separately as incidents. Human F review, missing
+operator metadata and protocol-incident clarification remain pending.
+See [group tracking](reports/group-tracking.csv), [observed statistics](reports/observed-results.md)
+and [receipt instructions](docs/receive-batches.md).
 See [reports/td1.md](reports/td1.md). No TD2 or TD3 work was implemented.
 
 Pack: `2026-10-18-students-1`; model selection: `2026-10-14`.
