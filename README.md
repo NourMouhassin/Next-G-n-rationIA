@@ -1,7 +1,7 @@
 # Next-G-n-rationIA — TD1
 
 Trustworthy Generative AI, ESILV DIA A4, 21 October 2026.
-Class: **to complete**. Sub-group: **to complete**. Members and contributions:
+Class: DIA4 Sub-group:5. Members and contributions:
 [reports/contributions.csv](reports/contributions.csv).
 
 This is an explicitly **partial** submission: all 20 references are executed and
