@@ -7,9 +7,9 @@ Contributions: [contributions.csv](contributions.csv).
 
 Evaluate five configured free SQL-generating models on twenty fixed e-commerce
 questions against independently checked local references. Currently **20/20 SQL
-references are computed and cross-checked computationally; 80/100 real model cells
-are executed (lots A, B, C, D), 84 real attempts including 4 retries**. Lot E
-(Dots on OpenRouter) is pending, run by a second member's OpenRouter account.
+references are computed and cross-checked computationally; 100/100 real model cells
+are executed (lots A, B, C, D), 104 real attempts including 4 retries**. Lot E
+(Dots on OpenRouter) is finished, run by a second member's OpenRouter account.
 
 | Lot | Model | Correct | Wrong | Not executed | Retries |
 |---|---|---:|---:|---:|---:|
@@ -17,7 +17,7 @@ are executed (lots A, B, C, D), 84 real attempts including 4 retries**. Lot E
 | B | groq `openai/gpt-oss-20b` | 18 | 2 | 0 | 0 |
 | C | openrouter `cohere/north-mini-code:free` | 11 | 9 | 0 | 0 |
 | D | groq `qwen/qwen3.8-27b` | 15 | 4 | 1 | 4 |
-| E | openrouter `dots-studio/dots-3-note-preview:free` | pending | | 20 | |
+| E | openrouter `dots-studio/dots-3-note-preview:free` | 13| 6| 1 |0 |
 
 Counts are on these twenty questions only: no general error rate and no ranking.
 Every wrong answer concerns the **age convention** (age on a reference date or at
