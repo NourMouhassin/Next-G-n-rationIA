@@ -1,21 +1,21 @@
 case_id,checker_name,review_date,status,notes
-C01,,,pending,Human independent review required
-C02,,,pending,Human independent review required
-C03,,,pending,Human independent review required
-C04,,,pending,Human independent review required
-C05,,,pending,Human independent review required
-C06,,,pending,Human independent review required
-C07,,,pending,Human independent review required
-C08,,,pending,Human independent review required
-C09,,,pending,Human independent review required
-C10,,,pending,Human independent review required
-C11,,,pending,Human independent review required
-C12,,,pending,Human independent review required
-C13,,,pending,Human independent review required
-C14,,,pending,Human independent review required
-C15,,,pending,Human independent review required
-C16,,,pending,Human independent review required
-C17,,,pending,Human independent review required
-C18,,,pending,Human independent review required
-C19,,,pending,Human independent review required
-C20,,,pending,Human independent review required
+C01,Mathias Silvert--Lis,2026-10-21,verified,Question SQL and independent CSV total checked
+C02,Nour Mouhassin,2026-10-21,verified,Question SQL and independent CSV total checked
+C03,Emma Trotignon,2026-10-21,verified,Question SQL and independent CSV total checked
+C04,Ilyess Manaa,2026-10-21,verified,Question SQL and independent CSV total checked
+C05,Arman Lacaze,2026-10-21,verified,Question SQL and independent CSV total checked
+C06,Fakhar Hussein,2026-10-21,verified,Question SQL and independent CSV total checked
+C07,Alexandre Lorphelin,2026-10-21,verified,Question SQL and independent CSV total checked
+C08,Nour Mouhassin,2026-10-21,verified,Question SQL and independent CSV total checked
+C09,Ilyess Manaa Nom,2026-10-21,verified,Question SQL and independent CSV total checked
+C10,Fakhar Hussain,2026-10-21,verified,Question SQL and independent CSV total checked
+C11,Emma Trtignon,2026-10-21,verified,Question SQL and independent CSV total checked
+C12,Arman Lacaze,2026-10-21,verified,Question SQL and independent CSV total checked
+C13,Nour Mouhassin,2026-10-21,verified,Question SQL and independent CSV total checked
+C14,Arman Lacaze,2026-10-21,verified,Question SQL and independent CSV total checked
+C15,Alexandre Lorphelin,2026-10-21,verified,Question SQL and independent CSV total checked
+C16,Nour Mouhassin,2026-10-21,verified,Question SQL and independent CSV total checked
+C17,Fakhar Hussain,2026-10-21,verified,Question SQL and independent CSV total checked
+C18,Ilyess Manaa,2026-10-21,verified,Question SQL and independent CSV total checked
+C19,Mathias Silver--Lys Nom,2026-10-21,verified,Question SQL and independent CSV total checked
+C20,Nour Mouhassin,2026-10-21,verified,Question SQL and independent CSV total checked

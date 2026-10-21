@@ -161,7 +161,7 @@
    "expected": "interrupted:work budget exceeded",
    "observed": "interrupted:work budget exceeded",
    "detail": "interrupted",
-   "elapsed_ms": 64.1,
+   "elapsed_ms": 69.6,
    "pass": true
   },
   {
@@ -170,7 +170,7 @@
    "expected": "too_many_rows",
    "observed": "too_many_rows",
    "detail": "more than 10 rows",
-   "elapsed_ms": 0.2,
+   "elapsed_ms": 0.3,
    "pass": true
   },
   {

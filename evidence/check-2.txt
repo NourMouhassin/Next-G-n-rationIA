@@ -8,6 +8,6 @@ test_retry_saved_and_resume_skips (__main__.OfflineTests.test_retry_saved_and_re
 test_shape_and_alias_enforced (__main__.OfflineTests.test_shape_and_alias_enforced) ... ok
 
 ----------------------------------------------------------------------
-Ran 8 tests in 0.012s
+Ran 8 tests in 0.011s
 
 OK

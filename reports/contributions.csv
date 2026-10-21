@@ -1,9 +1,9 @@
 member_name,role,actual_contribution,status
-,A,,to complete
-,B,,to complete
-,C,,to complete
-,D,,to complete
-,E,,to complete
-,F,,to complete
+Mathias Silvert--Lis,A,Executed the Groq openai/gpt-oss-120b lot C01-C20 and shared the original state and CSV files,complete
+Nour Mouhassin,B,Executed the gpt-oss-20b lot and shared the original state and CSV files,complete
+Ilyess Manaa,C,Executed the OpenRouter cohere/north-mini-code:free lot C01-C20 and shared the original state and CSV files,complete
+Fakhar Hussain,D,Executed the Groq qwen/qwen3.8-27b lot C01-C20 and shared the original state and CSV files,complete
+Emmaa Trotignon,E,Executed the OpenRouter dots-studio/dots-3-note-preview:free lot C01-C20 and shared the original state and CSV files,complete
+Nour Mouhassin,F,Imported lots A-E consolidated the traces generated the comparison files and ran the offline tests sandbox checks and final validation,complete
 ,G,,to complete
 ,H,,to complete
