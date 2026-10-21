@@ -1,0 +1,29 @@
+20/20 SQL references equal independent CSV totals; database unchanged.
+C01 792800 cents; 115 lines
+C02 590320 cents; 82 lines
+C03 936350 cents; 145 lines
+C04 2826250 cents; 397 lines
+C05 38480 cents; 5 lines
+C06 0 cents; 0 lines
+C07 13970 cents; 2 lines
+C08 605580 cents; 81 lines
+C09 487980 cents; 68 lines
+C10 558980 cents; 73 lines
+C11 446690 cents; 60 lines
+C12 1666490 cents; 245 lines
+C13 107740 cents; 14 lines
+C14 0 cents; 0 lines
+C15 168680 cents; 27 lines
+C16 376740 cents; 55 lines
+C17 258180 cents; 40 lines
+C18 62480 cents; 8 lines
+C19 1990 cents; 1 lines
+C20 1106090 cents; 158 lines
+Consolidated 0 attempts; 100 final rows (unrun cells explicitly marked).
+model                                                  C01 C02 C03 C04 C05 C06 C07 C08 C09 C10 C11 C12 C13 C14 C15 C16 C17 C18 C19 C20
+groq:openai/gpt-oss-120b                                --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+groq:openai/gpt-oss-20b                                 --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+openrouter:cohere/north-mini-code:free                  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+groq:qwen/qwen3.8-27b                                   --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+openrouter:dots-studio/dots-3-note-preview:free         --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --  --
+OK correct; WR wrong; SI invalid; SR rejected; AE access error; -- not executed (see explanation).

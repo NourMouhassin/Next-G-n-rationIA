@@ -1,0 +1,189 @@
+Tu es mon assistant développeur pour le TD1 du module **Trustworthy Generative AI – ESILV, DIA A4, 2026**.
+
+Je veux que tu réalises directement dans mon environnement VS Code et via le terminal tout le travail technique du TD1, conformément au sujet officiel. Ne te contente pas de proposer du code : crée les fichiers, exécute les scripts, vérifie les résultats, corrige les problèmes et prépare le dépôt GitHub.
+
+**Sources officielles :**
+- Cours : https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/index.html
+- TD1 : https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/kit-td1/enonce-td1-en.html
+- Protocole : https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/kit-td1/consigne-etudiante-en.html
+- Consignes GitHub et rendu : https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/submission-en.html
+- Barème : https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/assessment-en.html
+
+**Notre dépôt GitHub :**
+https://github.com/NourMouhassin/Next-G-n-rationIA
+
+**Mon environnement existant :**
+
+Windows 11, PowerShell, VS Code.
+
+Dossier du kit :
+`C:\Users\ilyes\OneDrive\Bureau\Esilv_Cours\Semestre1_A4\nextgenerationai\kit-td1`
+
+Python 3.12.10. L'environnement `.venv` et les dépendances fonctionnent.
+
+Les commandes `verify-data.py` et `check_access.py` ont déjà réussi : base SQLite et CSV intacts, cinq modèles accessibles, résultat `5/5 models OK`.
+
+Les clés GROQ_API_KEY et OPENROUTER_API_KEY ont été configurées en variables d'environnement dans mon terminal PowerShell. Vérifie seulement leur présence dans le processus utilisé, sans afficher leur valeur ni demander de les écrire dans un fichier.
+
+## Objectif
+
+Réaliser le TD1 au niveau attendu pour obtenir la meilleure évaluation possible sur R1, R2 et R3, en fournissant des preuves réelles, vérifiables et reproductibles. Respecte strictement les consignes pédagogiques.
+
+## Travail demandé
+
+### 1. Préparer le dépôt
+
+- Examiner les fichiers existants du kit et du dépôt GitHub.
+- Vérifier `git status`, les branches et le remote.
+- Si nécessaire, cloner le dépôt GitHub dans un dossier de travail séparé, puis y intégrer proprement les fichiers nécessaires du kit. Ne pas imbriquer accidentellement deux dépôts Git.
+- Préserver tous les travaux déjà effectués par les autres membres.
+- Placer le `.gitignore` du kit à la racine du dépôt.
+- Ne jamais versionner les clés API, `.env`, `.venv`, caches ou informations confidentielles.
+- Conserver la base SQLite et ses données originales, sans les modifier.
+
+### 2. Calculer les 20 références SQL (R1)
+
+Lire `questions-td1.json`, `schema.sql`, le protocole et le template `reference-td1.csv`.
+
+Pour C01 à C20 :
+
+- Écrire une requête SQLite SELECT correcte retournant exactement une ligne et une colonne nommée `revenue_cents`.
+- Calculer le chiffre d'affaires HT en centimes avec les prix et les quantités.
+- Respecter les bornes temporelles `[début, fin[`.
+- Calculer précisément l'âge révolu à la date indiquée, ou à la date de commande quand la question le demande.
+- Respecter les filtres produits et les combinaisons.
+- Renvoyer 0 lorsqu'aucune commande ne correspond.
+- Exécuter chaque requête sur la vraie base.
+- Vérifier indépendamment chaque résultat par un calcul utilisant les CSV ou une méthode indépendante.
+- Remplir les 20 lignes de `reference-td1.csv` sans changer le format officiel.
+
+Ne jamais utiliser la réponse d'un modèle IA ou le corrigé de l'enseignant comme référence. Préparer aussi des explications simples pour les conventions et les vérifications. Signaler que la contre-vérification par un autre membre du groupe reste à effectuer si elle n'a pas eu lieu.
+
+### 3. Faire fonctionner les cinq modèles (R2)
+
+Réutiliser autant que possible `skeleton-multi-llm-en.py`, `sandbox_sqlite.py`, `modeles-autorises.json` et les outils déjà fournis. Ne pas réécrire un système complexe inutilement.
+
+Le protocole prévoit cinq modèles, chacun testé sur les vingt questions, soit 100 cellules expérimentales au total.
+
+Respecter strictement :
+
+- Les modèles et paramètres du fichier JSON officiel.
+- Un prompt identique par question pour tous les modèles.
+- Température 0, plafond de tokens prévu, timeout de 45 secondes.
+- Une seule requête simultanée par sous-groupe.
+- Au moins trois secondes entre deux requêtes.
+- Au maximum une nouvelle tentative par cellule après une erreur temporaire autorisée.
+- Sauvegarde de chaque tentative, y compris les erreurs HTTP.
+- Conservation des fichiers d'état JSONL pour reprendre sans doublonner les appels.
+- OpenRouter limité aux routes gratuites, aucun paiement.
+- Exécution du SQL des modèles uniquement dans le sandbox en lecture seule.
+
+**Important :** l'enseignant exige une répartition des cinq lots entre les membres du sous-groupe, avec deux comptes OpenRouter distincts pour les modèles C et E. N'utilise pas mes deux clés pour exécuter automatiquement les 100 cellules sans vérifier cette répartition, les quotas et la coordination du groupe.
+
+Prépare le workflow complet, puis demande-moi uniquement les confirmations indispensables avant les appels réseau. Une fois mon lot confirmé, exécute-le réellement dans les limites prévues.
+
+Produire et consolider, à partir des résultats réellement disponibles :
+
+- Les fichiers de traces individuels et leurs états JSONL.
+- `traces-td1.csv` avec toutes les tentatives.
+- `traces-td1.jsonl` avec les tentatives et mesures originales.
+- Le fingerprint du prompt, les identifiants, réponses, SQL, erreurs, latences, tokens, coûts natifs et verdicts disponibles.
+
+Distinguer sans ambiguïté `real`, `replay` et `simulated`. Ne jamais fabriquer des résultats ou des appels réseau manquants.
+
+### 4. Analyser les résultats (R3)
+
+Compléter les deux fichiers officiels :
+
+**`model-question-comparison-en.csv`**
+
+Une ligne finale par modèle/question, soit 100 lignes lorsque les cinq lots sont consolidés.
+
+Utiliser les colonnes et statuts prévus dans le template. Chaque ligne doit pointer vers sa trace et son identifiant de cellule.
+
+Pour chaque échec réellement observé, expliquer la cause depuis le SQL ou le statut HTTP : mauvaise convention, date, âge, produit, SQL invalide, troncature, accès refusé, etc.
+
+Distinguer une mauvaise réponse SQL d'un échec d'accès API. Pour les cellules non exécutées, indiquer `not_executed` avec la raison.
+
+Générer également une vue pivot modèles × questions, lisible dans le terminal, sans créer une nouvelle saisie manuelle.
+
+**`five-model-summary-en.csv`**
+
+Une ligne par modèle, avec :
+- Index public documenté, source et date.
+- Prix input/output de la route payante du même modèle, lorsqu'ils sont documentés.
+- N/A motivé lorsque l'information n'existe pas.
+- Fournisseur et route utilisés.
+- Performances observées par famille : période, âge, produits, combinaisons.
+- Références vers les traces et limites de l'expérience.
+
+Utiliser le portfolio fourni, avec les sources officielles complémentaires si nécessaire. Ne pas inventer de prix, d'index ou de taux.
+
+### 5. Constituer le rendu officiel
+
+Préparer les livrables attendus dans le dépôt :
+
+- `reference-td1.csv`
+- `traces-td1.csv`
+- `traces-td1.jsonl`
+- `model-question-comparison-en.csv`
+- `five-model-summary-en.csv`
+- `prompts-en.md` contenant exactement les prompts expérimentaux utilisés
+- Le fichier de configuration des modèles
+- Les scripts Python nécessaires
+- `README.md`
+- `reports/td1.md`
+
+Dans `reports/td1.md`, expliquer les objectifs, la méthode, les résultats réellement obtenus, les succès, les échecs, leurs causes, les limitations, les preuves et les prochaines étapes.
+
+Indiquer honnêtement les travaux partiellement réalisés. Prévoir des champs à compléter pour le nom du sous-groupe, les membres et leurs contributions plutôt que d'inventer des informations.
+
+Déclarer l'utilisation de Codex pour l'assistance au développement, et conserver le prompt de développement utilisé conformément aux consignes.
+
+Le README doit permettre à un autre étudiant de retrouver et rejouer l'expérience depuis un clone propre, sans clés exposées.
+
+Ne réalise pas le TD2 ni le TD3. Aucun site web, dashboard ou système complexe n'est demandé.
+
+### 6. Vérifier la qualité
+
+Exécuter les contrôles nécessaires :
+
+- Intégrité de la base et des fichiers CSV.
+- 20 références exécutables et indépendamment calculées.
+- Cohérence des résultats et des colonnes CSV.
+- Absence de doublons dans les cellules finales.
+- Traçabilité des tentatives et des verdicts.
+- Aucun appel inventé, aucune mesure manquante remplacée par zéro.
+- Tests hors réseau quand ils suffisent.
+- Contrôle des fichiers Git avant tout commit.
+- Reproductibilité des commandes documentées.
+
+Corrige automatiquement les bugs détectés. Ne prétends pas que les 100 appels ou les contrôles humains sont terminés s'ils ne le sont pas.
+
+### 7. GitHub : commits et push
+
+Lorsque le travail est vérifié :
+
+- Confirmer que le remote pointe bien vers `https://github.com/NourMouhassin/Next-G-n-rationIA`.
+- Synchroniser prudemment avec le travail des autres membres.
+- Faire un ou plusieurs commits Git clairs et cohérents.
+- Pousser sur le dépôt si mes permissions GitHub le permettent et qu'aucun conflit ne menace les changements des autres.
+- Ne jamais utiliser `push --force`.
+- Si des conflits ou des droits manquants bloquent le push, arrêter l'opération dangereuse et m'indiquer précisément le problème.
+- Donner le hash complet du dernier commit poussé et le lien direct vers `reports/td1.md` à ce commit.
+
+Préparer aussi le texte du rendu Moodle contenant l'URL GitHub, le hash complet et le lien du rapport. Je ferai personnellement la soumission Moodle.
+
+## Méthode de travail
+
+Tu es autorisé à créer et modifier les fichiers du projet et à exécuter les commandes nécessaires.
+
+Travaille de façon autonome. N'attends pas mon accord pour chaque petite modification locale. En revanche, demande une confirmation lorsqu'il manque un élément indispensable, notamment une attribution de compte ou une validation collective.
+
+Priorise la conformité au sujet plutôt que la complexité. Réutilise le code officiel, évite les dépendances inutiles et conserve la structure simple.
+
+Pour économiser le temps et les tokens, n'affiche pas de longs fichiers complets dans la conversation : modifie-les directement et présente seulement les commandes exécutées, résultats utiles et blocages.
+
+Commence immédiatement par analyser le kit local et le dépôt GitHub, puis avance dans l'ordre : références SQL, vérifications indépendantes, protocole expérimental, appels autorisés, traces, comparaisons, rapport, tests et Git.
+
+À la fin, donne-moi un bilan clair : travaux terminés, travaux en attente des autres membres, fichiers produits, commandes pour la démonstration au professeur, statut GitHub et éléments à envoyer sur Moodle.

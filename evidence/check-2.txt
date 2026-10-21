@@ -1,0 +1,13 @@
+test_final_matrix (__main__.OfflineTests.test_final_matrix) ... ok
+test_free_parameters (__main__.OfflineTests.test_free_parameters) ... ok
+test_no_retry_on_resume_without_permission (__main__.OfflineTests.test_no_retry_on_resume_without_permission) ... ok
+test_raw_and_missing_measurements (__main__.OfflineTests.test_raw_and_missing_measurements) ... ok
+test_reference_recomputation (__main__.OfflineTests.test_reference_recomputation) ... ok
+test_retry_policy (__main__.OfflineTests.test_retry_policy) ... ok
+test_retry_saved_and_resume_skips (__main__.OfflineTests.test_retry_saved_and_resume_skips) ... ok
+test_shape_and_alias_enforced (__main__.OfflineTests.test_shape_and_alias_enforced) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.074s
+
+OK

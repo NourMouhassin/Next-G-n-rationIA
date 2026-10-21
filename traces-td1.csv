@@ -1,0 +1,1 @@
+cell_id,provider,model_requested,model_returned,case_id,question,prompt_sha256,sql,value,reference,verdict,verdict_detail,http_status,error,latency_ms,tokens_prompt,tokens_completion,tokens_reasoning,cost_native,attempts,date_utc,nature,response_text,raw_response,finish_reason,retry_after_s,retry_allowed

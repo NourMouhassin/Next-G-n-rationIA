@@ -1,0 +1,5 @@
+* text=auto eol=lf
+# These original bytes are authenticated by the distributed manifest.
+data/* -text
+schema.sql -text
+docs/development-prompt.txt -text -whitespace

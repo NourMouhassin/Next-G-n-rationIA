@@ -1,0 +1,231 @@
+{
+ "db": "data\\boutique.sqlite",
+ "sqlite_version": "3.49.1",
+ "tests": [
+  {
+   "test": "insert",
+   "sql": "INSERT INTO product VALUES ('z', 1)",
+   "expected": "not_select",
+   "observed": "not_select",
+   "detail": "INSERT INTO product VALUES ('z', 1)",
+   "elapsed_ms": 0.0,
+   "pass": true
+  },
+  {
+   "test": "update",
+   "sql": "UPDATE product SET price = 0",
+   "expected": "not_select",
+   "observed": "not_select",
+   "detail": "UPDATE product SET price = 0",
+   "elapsed_ms": 0.0,
+   "pass": true
+  },
+  {
+   "test": "delete",
+   "sql": "DELETE FROM orders",
+   "expected": "not_select",
+   "observed": "not_select",
+   "detail": "DELETE FROM orders",
+   "elapsed_ms": 0.0,
+   "pass": true
+  },
+  {
+   "test": "create",
+   "sql": "CREATE TABLE t (x)",
+   "expected": "not_select",
+   "observed": "not_select",
+   "detail": "CREATE TABLE t (x)",
+   "elapsed_ms": 0.0,
+   "pass": true
+  },
+  {
+   "test": "drop",
+   "sql": "DROP TABLE orders",
+   "expected": "not_select",
+   "observed": "not_select",
+   "detail": "DROP TABLE orders",
+   "elapsed_ms": 0.0,
+   "pass": true
+  },
+  {
+   "test": "pragma",
+   "sql": "PRAGMA writable_schema = 1",
+   "expected": "not_select",
+   "observed": "not_select",
+   "detail": "PRAGMA writable_schema = 1",
+   "elapsed_ms": 0.0,
+   "pass": true
+  },
+  {
+   "test": "attach",
+   "sql": "ATTACH DATABASE '/tmp/x.sqlite' AS x",
+   "expected": "not_select",
+   "observed": "not_select",
+   "detail": "ATTACH DATABASE '/tmp/x.sqlite' AS x",
+   "elapsed_ms": 0.0,
+   "pass": true
+  },
+  {
+   "test": "write_inside_cte",
+   "sql": "WITH t AS (SELECT 1) INSERT INTO product SELECT 'z', 1",
+   "expected": "not_authorized",
+   "observed": "not_authorized",
+   "detail": "not authorized",
+   "elapsed_ms": 1.6,
+   "pass": true
+  },
+  {
+   "test": "select_then_write",
+   "sql": "SELECT 1; DELETE FROM orders",
+   "expected": "multiple_statements",
+   "observed": "multiple_statements",
+   "detail": "You can only execute one statement at a time.",
+   "elapsed_ms": 2.2,
+   "pass": true
+  },
+  {
+   "test": "two_selects",
+   "sql": "SELECT 1; SELECT 2",
+   "expected": "multiple_statements",
+   "observed": "multiple_statements",
+   "detail": "You can only execute one statement at a time.",
+   "elapsed_ms": 1.2,
+   "pass": true
+  },
+  {
+   "test": "schema_read",
+   "sql": "SELECT sql FROM sqlite_master",
+   "expected": "not_authorized",
+   "observed": "not_authorized",
+   "detail": "access to sqlite_master.sql is prohibited",
+   "elapsed_ms": 1.5,
+   "pass": true
+  },
+  {
+   "test": "schema_read_alias",
+   "sql": "SELECT name FROM sqlite_schema",
+   "expected": "not_authorized",
+   "observed": "not_authorized",
+   "detail": "access to sqlite_master.name is prohibited",
+   "elapsed_ms": 1.4,
+   "pass": true
+  },
+  {
+   "test": "load_extension",
+   "sql": "SELECT load_extension('/tmp/evil.so')",
+   "expected": "not_authorized",
+   "observed": "not_authorized",
+   "detail": "not authorized to use function: load_extension",
+   "elapsed_ms": 0.9,
+   "pass": true
+  },
+  {
+   "test": "readfile",
+   "sql": "SELECT readfile('/etc/passwd')",
+   "expected": "not_authorized | runtime_error",
+   "observed": "runtime_error",
+   "detail": "no such function: readfile",
+   "elapsed_ms": 0.8,
+   "pass": true
+  },
+  {
+   "test": "writefile",
+   "sql": "SELECT writefile('/tmp/x', 'y')",
+   "expected": "not_authorized | runtime_error",
+   "observed": "runtime_error",
+   "detail": "no such function: writefile",
+   "elapsed_ms": 1.0,
+   "pass": true
+  },
+  {
+   "test": "random_function",
+   "sql": "SELECT random()",
+   "expected": "not_authorized",
+   "observed": "not_authorized",
+   "detail": "not authorized to use function: random",
+   "elapsed_ms": 0.9,
+   "pass": true
+  },
+  {
+   "test": "recursive_cte",
+   "sql": "WITH RECURSIVE c(x) AS (SELECT 1 UNION ALL SELECT x + 1 FROM c) SELECT count(*) FROM c",
+   "expected": "not_authorized",
+   "observed": "not_authorized",
+   "detail": "not authorized",
+   "elapsed_ms": 0.8,
+   "pass": true
+  },
+  {
+   "test": "cartesian_explosion",
+   "sql": "SELECT count(*) FROM orders a, orders b, orders c, orders d",
+   "expected": "interrupted:work budget exceeded",
+   "observed": "interrupted:work budget exceeded",
+   "detail": "interrupted",
+   "elapsed_ms": 123.3,
+   "pass": true
+  },
+  {
+   "test": "too_many_rows",
+   "sql": "SELECT * FROM orders",
+   "expected": "too_many_rows",
+   "observed": "too_many_rows",
+   "detail": "more than 10 rows",
+   "elapsed_ms": 2.0,
+   "pass": true
+  },
+  {
+   "test": "syntax_error",
+   "sql": "SELECT FROM WHERE",
+   "expected": "syntax_error",
+   "observed": "syntax_error",
+   "detail": "near \"FROM\": syntax error",
+   "elapsed_ms": 0.7,
+   "pass": true
+  },
+  {
+   "test": "unknown_column",
+   "sql": "SELECT missing_column FROM orders",
+   "expected": "runtime_error",
+   "observed": "runtime_error",
+   "detail": "no such column: missing_column",
+   "elapsed_ms": 0.8,
+   "pass": true
+  },
+  {
+   "test": "valid_scalar",
+   "sql": "SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents FROM orders o JOIN product p ON p.product_id = o.product_id",
+   "expected": "ok",
+   "observed": "ok",
+   "detail": "",
+   "elapsed_ms": 0.8,
+   "pass": true
+  },
+  {
+   "test": "valid_with_cte",
+   "sql": "WITH t AS (SELECT quantity_product * price AS amount FROM orders JOIN product USING (product_id)) SELECT COALESCE(SUM(amount), 0) FROM t",
+   "expected": "ok",
+   "observed": "ok",
+   "detail": "",
+   "elapsed_ms": 0.9,
+   "pass": true
+  },
+  {
+   "test": "valid_date_function",
+   "sql": "SELECT count(*) FROM customers WHERE date(insert_date, '+1 day') >= '2025-06-01'",
+   "expected": "ok",
+   "observed": "ok",
+   "detail": "",
+   "elapsed_ms": 0.7,
+   "pass": true
+  },
+  {
+   "test": "database_unchanged",
+   "sql": "",
+   "expected": "0077e235adc2ca64",
+   "observed": "0077e235adc2ca64",
+   "detail": "sha256 of the SQLite file before and after the tests",
+   "elapsed_ms": 0,
+   "pass": true
+  }
+ ]
+}

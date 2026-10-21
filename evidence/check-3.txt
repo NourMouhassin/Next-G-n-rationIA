@@ -1,0 +1,26 @@
+PASS insert                   not_select
+PASS update                   not_select
+PASS delete                   not_select
+PASS create                   not_select
+PASS drop                     not_select
+PASS pragma                   not_select
+PASS attach                   not_select
+PASS write_inside_cte         not_authorized
+PASS select_then_write        multiple_statements
+PASS two_selects              multiple_statements
+PASS schema_read              not_authorized
+PASS schema_read_alias        not_authorized
+PASS load_extension           not_authorized
+PASS readfile                 runtime_error
+PASS writefile                runtime_error
+PASS random_function          not_authorized
+PASS recursive_cte            not_authorized
+PASS cartesian_explosion      interrupted:work budget exceeded
+PASS too_many_rows            too_many_rows
+PASS syntax_error             syntax_error
+PASS unknown_column           runtime_error
+PASS valid_scalar             ok
+PASS valid_with_cte           ok
+PASS valid_date_function      ok
+PASS database_unchanged       0077e235adc2ca64
+{"tests": 25, "failed": []}

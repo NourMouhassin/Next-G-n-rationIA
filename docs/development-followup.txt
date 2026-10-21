@@ -1,0 +1,15 @@
+Merci ! Continue automatiquement tout le travail que tu peux faire sans appels API.
+Avant de lancer les modèles, lis les consignes du kit et donne-moi un tableau très simple indiquant, pour les lots A, B, C, D et E :
+- Le modèle d'IA attribué.
+- Les questions à exécuter.
+- Le fournisseur (Groq ou OpenRouter).
+- Le quota nécessaire.
+Je n'ai pas encore confirmé mon lot avec mon groupe. Ne choisis pas un lot arbitrairement et n'invente pas les quotas ni les confirmations des autres membres.
+Les deux clés API Groq et OpenRouter fonctionnent déjà dans mon terminal PowerShell VS Code : check_access.py a obtenu 5/5 modèles OK. Propose-moi une méthode pour exécuter mon lot depuis ce terminal sans exposer les clés.
+Attention, mon Python est en version 3.12.10, pas 3.15. Corrige les commandes et utilise .\.venv\Scripts\python.exe lorsque cet environnement est disponible.
+En attendant :
+1. Termine les fichiers de références SQL, les comparaisons et le rapport avec les résultats réellement disponibles.
+2. Vérifie les tests et la conformité aux consignes du professeur.
+3. Prépare les commits Git et le push GitHub, sans écraser le travail des autres.
+4. Identifie ce qui manque pour terminer les 100 appels réels.
+Ne bloque que pour les informations indispensables concernant les appels API. Explique-moi très simplement ce que je dois demander à mon groupe.
