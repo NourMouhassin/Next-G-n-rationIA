@@ -92,6 +92,11 @@ def consolidate():
         if key not in latest or int(row['attempts']) > int(latest[key][0]['attempts']):
             latest[key] = (row, source)
     refs = s.load_references(ROOT/'reference-td1.csv')
+    causes_path = ROOT/'reports/td1-causes.csv'
+    causes = {}
+    if causes_path.exists():
+        with causes_path.open(newline='', encoding='utf-8') as f:
+            causes = {r['cell_id']: r['cause'] for r in csv.DictReader(f)}
     comparison = []
     for model in CONFIG['modeles']:
         name = f"{model['gate']}:{model['identifiant_exact']}"
@@ -103,6 +108,8 @@ def consolidate():
             if observed:
                 row, source = observed
                 r.update(trace_file=source, nature='real', status=row['verdict'], value_cents=row['value'], explanation=explanation(row)+f" Final attempt {row['attempts']}.")
+                if cell in causes and row['verdict'] != 'correct':
+                    r['explanation'] = f"Cause read from the trace: {causes[cell]} Final attempt {row['attempts']}. Notes: reports/td1-causes.csv"
             comparison.append(r)
     assert len(comparison)==100 and len({r['cell_id'] for r in comparison})==100
     ref.write_csv('model-question-comparison-en.csv', COMPARISON, comparison)
@@ -132,10 +139,12 @@ def summary(comparison):
         for f in ('period','age','product','combined'):
             ids = {q['id'] for q in QUESTIONS if family(q)==f}
             group = [x for x in mine if x['case_id'] in ids]
-            attempted = [x for x in group if x['nature']=='real']
+            # Evaluated = SQL received and judged; access errors and unfinished cells are counted apart.
+            attempted = [x for x in group if x['nature']=='real' and x['status'] not in ('access_error','not_executed')]
             correct = sum(x['status']=='correct' for x in attempted)
-            access = sum(x['status']=='access_error' for x in attempted)
-            r[f+'_results'] = f'{correct}/{len(attempted)} attempted correct; {access} access errors; {len(group)-len(attempted)} unrun; accuracy '+(f'{correct/len(attempted):.1%}' if attempted else 'N/A')
+            access = sum(x['status']=='access_error' for x in group)
+            unrun = sum(x['status']=='not_executed' for x in group)
+            r[f+'_results'] = f'{correct}/{len(attempted)} attempted correct; {access} access errors; {unrun} unrun; accuracy '+(f'{correct/len(attempted):.1%}' if attempted else 'N/A')
         rows.append(r)
     ref.write_csv('five-model-summary-en.csv', SUMMARY, rows)
 

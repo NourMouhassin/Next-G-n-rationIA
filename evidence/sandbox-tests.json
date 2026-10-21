@@ -1,6 +1,6 @@
 {
- "db": "data\\boutique.sqlite",
- "sqlite_version": "3.49.1",
+ "db": "data/boutique.sqlite",
+ "sqlite_version": "3.45.3",
  "tests": [
   {
    "test": "insert",
@@ -71,7 +71,7 @@
    "expected": "not_authorized",
    "observed": "not_authorized",
    "detail": "not authorized",
-   "elapsed_ms": 1.6,
+   "elapsed_ms": 0.3,
    "pass": true
   },
   {
@@ -80,7 +80,7 @@
    "expected": "multiple_statements",
    "observed": "multiple_statements",
    "detail": "You can only execute one statement at a time.",
-   "elapsed_ms": 2.2,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -89,7 +89,7 @@
    "expected": "multiple_statements",
    "observed": "multiple_statements",
    "detail": "You can only execute one statement at a time.",
-   "elapsed_ms": 1.2,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -98,7 +98,7 @@
    "expected": "not_authorized",
    "observed": "not_authorized",
    "detail": "access to sqlite_master.sql is prohibited",
-   "elapsed_ms": 1.5,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -107,7 +107,7 @@
    "expected": "not_authorized",
    "observed": "not_authorized",
    "detail": "access to sqlite_master.name is prohibited",
-   "elapsed_ms": 1.4,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -116,7 +116,7 @@
    "expected": "not_authorized",
    "observed": "not_authorized",
    "detail": "not authorized to use function: load_extension",
-   "elapsed_ms": 0.9,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -125,7 +125,7 @@
    "expected": "not_authorized | runtime_error",
    "observed": "runtime_error",
    "detail": "no such function: readfile",
-   "elapsed_ms": 0.8,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -134,7 +134,7 @@
    "expected": "not_authorized | runtime_error",
    "observed": "runtime_error",
    "detail": "no such function: writefile",
-   "elapsed_ms": 1.0,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -143,7 +143,7 @@
    "expected": "not_authorized",
    "observed": "not_authorized",
    "detail": "not authorized to use function: random",
-   "elapsed_ms": 0.9,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -152,7 +152,7 @@
    "expected": "not_authorized",
    "observed": "not_authorized",
    "detail": "not authorized",
-   "elapsed_ms": 0.8,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -161,7 +161,7 @@
    "expected": "interrupted:work budget exceeded",
    "observed": "interrupted:work budget exceeded",
    "detail": "interrupted",
-   "elapsed_ms": 123.3,
+   "elapsed_ms": 64.1,
    "pass": true
   },
   {
@@ -170,7 +170,7 @@
    "expected": "too_many_rows",
    "observed": "too_many_rows",
    "detail": "more than 10 rows",
-   "elapsed_ms": 2.0,
+   "elapsed_ms": 0.2,
    "pass": true
   },
   {
@@ -179,7 +179,7 @@
    "expected": "syntax_error",
    "observed": "syntax_error",
    "detail": "near \"FROM\": syntax error",
-   "elapsed_ms": 0.7,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -188,7 +188,7 @@
    "expected": "runtime_error",
    "observed": "runtime_error",
    "detail": "no such column: missing_column",
-   "elapsed_ms": 0.8,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {
@@ -197,7 +197,7 @@
    "expected": "ok",
    "observed": "ok",
    "detail": "",
-   "elapsed_ms": 0.8,
+   "elapsed_ms": 0.2,
    "pass": true
   },
   {
@@ -206,7 +206,7 @@
    "expected": "ok",
    "observed": "ok",
    "detail": "",
-   "elapsed_ms": 0.9,
+   "elapsed_ms": 0.2,
    "pass": true
   },
   {
@@ -215,7 +215,7 @@
    "expected": "ok",
    "observed": "ok",
    "detail": "",
-   "elapsed_ms": 0.7,
+   "elapsed_ms": 0.1,
    "pass": true
   },
   {

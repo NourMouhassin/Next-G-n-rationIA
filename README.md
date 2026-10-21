@@ -5,9 +5,9 @@ Class: **to complete**. Sub-group: **to complete**. Members and contributions:
 [reports/contributions.csv](reports/contributions.csv).
 
 This is an explicitly **partial** submission: all 20 references are executed and
-independently recomputed from CSV, but **0/100 model cells have been executed**.
-The 100 comparison rows are `not_executed`, not measured failures. Human cross-check,
-account allocation, live quota checks and the group handover remain pending.
+independently recomputed from CSV, but **80/100 model cells have been executed (lots A to D, 21 October 2026; lot E pending)**.
+The 20 rows of lot E stay `not_executed` until it runs; causes of the observed errors are in
+[reports/td1-causes.csv](reports/td1-causes.csv). Human R1 cross-check and member names remain pending.
 See [reports/td1.md](reports/td1.md). No TD2 or TD3 work was implemented.
 
 Pack: `2026-10-18-students-1`; model selection: `2026-10-14`.
