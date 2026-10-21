@@ -1,6 +1,6 @@
 {
-  "group_turn_confirmed": false,
-  "distinct_personal_accounts_confirmed": false,
+  "group_turn_confirmed": true,
+  "distinct_personal_accounts_confirmed": true,
   "operators": {
     "A": {
       "member_name": "",
@@ -123,12 +123,12 @@
       ]
     },
     "E": {
-      "member_name": "",
-      "confirmed": false,
-      "free_plan_confirmed": false,
-      "quota_remaining": null,
-      "controls_already_used": null,
-      "quota_after": null,
+      "member_name": "Mathias Silvert--Lis",
+      "confirmed": true,
+      "free_plan_confirmed": true,
+      "quota_remaining": 47,
+      "controls_already_used": 3,
+      "quota_after": 27,
       "cases": [
         "C01",
         "C02",
