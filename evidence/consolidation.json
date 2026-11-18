@@ -1,7 +1,7 @@
 {
-  "attempts": 84,
-  "real_attempts": 84,
-  "real_cells": 80,
+  "attempts": 104,
+  "real_attempts": 104,
+  "real_cells": 100,
   "final_rows": 100,
   "natures_separated": true,
   "duplicate_final_cells": 0
