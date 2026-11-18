@@ -1,0 +1,20 @@
+{
+  "type": "offline_reproduction_from_original_td1_comparison",
+  "matrix_sha256": "50d24f069f176c3dbef33991353699c8e997a92a25b0f023830e7b7df97aa9ae",
+  "matrix_path": "model-question-comparison-en.csv",
+  "catalog_path": "docs/paid-route-snapshot.json",
+  "catalog_date": "2026-10-21",
+  "question_count": 20,
+  "model_count": 5,
+  "test_suite": "15 deterministic unit tests; uses an independently constructed status-only fixture",
+  "outputs": {
+    "scenarios-before.jsonl": 7,
+    "scenarios-after.jsonl": 7,
+    "scenarios-extra.jsonl": 11,
+    "family-rates.csv": 26,
+    "routing-check.json": 1
+  },
+  "network_calls": 0,
+  "api_keys_used": false,
+  "external_availability_measured": false
+}

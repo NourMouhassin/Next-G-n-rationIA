@@ -1,0 +1,20 @@
+test_age_date_free_exhaustion_defers (__main__.RoutingTests.test_age_date_free_exhaustion_defers) ... ok
+test_age_date_route (__main__.RoutingTests.test_age_date_route) ... ok
+test_age_order_payout_requires_human_review (__main__.RoutingTests.test_age_order_payout_requires_human_review) ... ok
+test_check_descriptions_are_proposed_not_performed (__main__.RoutingTests.test_check_descriptions_are_proposed_not_performed) ... ok
+test_duplicate_rejected (__main__.RoutingTests.test_duplicate_rejected) ... ok
+test_family_counts (__main__.RoutingTests.test_family_counts) ... ok
+test_included_subscription_before_wait (__main__.RoutingTests.test_included_subscription_before_wait) ... ok
+test_missing_cell_rejected (__main__.RoutingTests.test_missing_cell_rejected) ... ok
+test_no_free_and_no_money_abstains (__main__.RoutingTests.test_no_free_and_no_money_abstains) ... ok
+test_provider_down_fallback (__main__.RoutingTests.test_provider_down_fallback) ... ok
+test_published_price (__main__.RoutingTests.test_published_price) ... ok
+test_seven_official_scenario_intents (__main__.RoutingTests.test_seven_official_scenario_intents) ... ok
+test_strict_eligibility (__main__.RoutingTests.test_strict_eligibility) ... ok
+test_undocumented_route_is_not_free (__main__.RoutingTests.test_undocumented_route_is_not_free) ... ok
+test_unseen_family_abstains (__main__.RoutingTests.test_unseen_family_abstains) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.024s
+
+OK

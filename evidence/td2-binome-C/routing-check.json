@@ -1,0 +1,1 @@
+{"status": "OK", "models": 5, "cases": 20, "cells": 100, "families": ["F1_period", "F2_age_date", "F2b_age_order", "F3_product", "F4_combined"], "price_snapshot": "2026-10-21", "source": "model-question-comparison-en.csv (read, not modified)"}
