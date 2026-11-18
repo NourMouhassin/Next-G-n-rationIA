@@ -1,0 +1,26 @@
+family,model,correct,total,failed_cases
+F1_period,groq:openai/gpt-oss-120b,6,6,
+F1_period,groq:openai/gpt-oss-20b,6,6,
+F1_period,openrouter:cohere/north-mini-code:free,6,6,
+F1_period,groq:qwen/qwen3.8-27b,6,6,
+F1_period,openrouter:dots-studio/dots-3-note-preview:free,6,6,
+F2_age_date,groq:openai/gpt-oss-120b,4,4,
+F2_age_date,groq:openai/gpt-oss-20b,2,4,C02 C11
+F2_age_date,openrouter:cohere/north-mini-code:free,0,4,C02 C08 C09 C11
+F2_age_date,groq:qwen/qwen3.8-27b,3,4,C09
+F2_age_date,openrouter:dots-studio/dots-3-note-preview:free,0,4,C02 C08 C09 C11
+F2b_age_order,groq:openai/gpt-oss-120b,1,1,
+F2b_age_order,groq:openai/gpt-oss-20b,1,1,
+F2b_age_order,openrouter:cohere/north-mini-code:free,0,1,C10
+F2b_age_order,groq:qwen/qwen3.8-27b,1,1,
+F2b_age_order,openrouter:dots-studio/dots-3-note-preview:free,0,1,C10
+F3_product,groq:openai/gpt-oss-120b,4,4,
+F3_product,groq:openai/gpt-oss-20b,4,4,
+F3_product,openrouter:cohere/north-mini-code:free,4,4,
+F3_product,groq:qwen/qwen3.8-27b,4,4,
+F3_product,openrouter:dots-studio/dots-3-note-preview:free,4,4,
+F4_combined,groq:openai/gpt-oss-120b,4,5,C15
+F4_combined,groq:openai/gpt-oss-20b,5,5,
+F4_combined,openrouter:cohere/north-mini-code:free,1,5,C15 C17 C18 C19
+F4_combined,groq:qwen/qwen3.8-27b,1,5,C15 C16 C17 C19
+F4_combined,openrouter:dots-studio/dots-3-note-preview:free,3,5,C17 C18

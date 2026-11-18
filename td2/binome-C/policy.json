@@ -1,0 +1,31 @@
+{
+  "method": "Read-only family eligibility: all TD1 cells in the category must be correct; an error does not count as success. Among available zero-cash candidates, explicit preference breaks ties; this is not a validated general ranking.",
+  "token_envelope": {"input": 650, "output": 300, "note": "Illustrative fixed envelope for comparing paid-route marginal prices; NOT measured usage or a bill"},
+  "families": {
+    "F1_period": {
+      "cases": ["C01", "C04", "C05", "C06", "C07", "C20"],
+      "preferred_models": ["openrouter:cohere/north-mini-code:free", "openrouter:dots-studio/dots-3-note-preview:free", "groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b"]
+    },
+    "F2_age_date": {
+      "cases": ["C02", "C08", "C09", "C11"],
+      "preferred_models": ["groq:openai/gpt-oss-120b", "groq:openai/gpt-oss-20b", "groq:qwen/qwen3.8-27b", "openrouter:dots-studio/dots-3-note-preview:free", "openrouter:cohere/north-mini-code:free"]
+    },
+    "F2b_age_order": {
+      "cases": ["C10"],
+      "preferred_models": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b", "openrouter:dots-studio/dots-3-note-preview:free", "openrouter:cohere/north-mini-code:free"]
+    },
+    "F3_product": {
+      "cases": ["C03", "C12", "C13", "C14"],
+      "preferred_models": ["openrouter:dots-studio/dots-3-note-preview:free", "openrouter:cohere/north-mini-code:free", "groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "groq:qwen/qwen3.8-27b"]
+    },
+    "F4_combined": {
+      "cases": ["C15", "C16", "C17", "C18", "C19"],
+      "preferred_models": ["groq:openai/gpt-oss-20b", "groq:openai/gpt-oss-120b", "openrouter:dots-studio/dots-3-note-preview:free", "groq:qwen/qwen3.8-27b", "openrouter:cohere/north-mini-code:free"]
+    }
+  },
+  "notes": [
+    "F4 contains C18, a mixed time-period + age-at-order question. F2b only isolates the pure age-at-order case C10.",
+    "C09 is a real wrong 2/3 and 3/5 consensus; all age-bearing families require a deterministic reference check for customer-visible amounts or payouts.",
+    "Free tiers were free in TD1, not guaranteed available in future. Quota scenarios are simulated; a wake-up is not proof of restored availability."
+  ]
+}
