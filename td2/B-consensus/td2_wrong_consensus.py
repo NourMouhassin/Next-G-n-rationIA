@@ -6,11 +6,16 @@ import re
 from collections import Counter
 from datetime import date
 from pathlib import Path
+import sys
+
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parents[1]
+sys.path.insert(0, str(REPO / "td1"))
 import td1
 
-ROOT = Path(__file__).resolve().parent
-OUT = ROOT/'evidence/td2-binome-B'
-SQL = ROOT/'sql/td2-binome-B'
+ROOT = REPO / "td1"
+OUT = HERE/'evidence'
+SQL = HERE/'sql'
 MODELS = [f"{m['gate']}:{m['identifiant_exact']}" for m in td1.CONFIG['modeles']]
 QWEN = 'groq:qwen/qwen3.8-27b'
 COHERE = 'openrouter:cohere/north-mini-code:free'
@@ -40,7 +45,7 @@ def main():
     SQL.mkdir(parents=True,exist_ok=True)
     protected=[ROOT/'traces-td1.csv',ROOT/'reference-td1.csv',ROOT/'data/boutique.sqlite',
                *sorted((ROOT/'data').glob('*.csv'))]
-    before={str(p.relative_to(ROOT)):digest(p) for p in protected}
+    before={str(p.relative_to(REPO)):digest(p) for p in protected}
     rows=read_csv(ROOT/'traces-td1.csv')
     latest={}
     for index,row in enumerate(rows,1):
@@ -140,8 +145,8 @@ def main():
         lines=[(i,json.loads(line)) for i,line in enumerate(original.read_text(encoding='utf-8').splitlines(),1) if line.strip()]
         number=next(i for i,x in lines if x['cell_id']==r['cell_id'] and int(x['attempts'])==int(r['attempts']))
         identities.append(dict(model=m,cell_id=r['cell_id'],attempt=int(r['attempts']),date_utc=r['date_utc'],
-            source=f'{original.relative_to(ROOT).as_posix()}#L{number}',csv_record=latest[r['cell_id']][2],value_cents=int(r['value']) if r['value'] else None,verdict=r['verdict'],prompt_sha256=r['prompt_sha256']))
-    assert before=={str(p.relative_to(ROOT)):digest(p) for p in protected}
+            source=f'{original.relative_to(REPO).as_posix()}#L{number}',csv_record=latest[r['cell_id']][2],value_cents=int(r['value']) if r['value'] else None,verdict=r['verdict'],prompt_sha256=r['prompt_sha256']))
+    assert before=={str(p.relative_to(REPO)):digest(p) for p in protected}
     evidence=dict(nature='real TD1 batch; offline diagnostic',final_cells=len(latest),real_attempts=sum(r['nature']=='real' for r in rows),reference_cents=expected,
         proposals=identities,shared_wrong_cases=shared,delta=totals,votes=votes,source_sha256=before,database_unchanged=True)
     (OUT/'C09-evidence.json').write_text(json.dumps(evidence,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')

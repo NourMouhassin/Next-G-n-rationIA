@@ -8,9 +8,9 @@ value / verdict / nature / reference, dernière ligne du CSV = dernière tentati
 membre sans trace valide = gardé dans n sans voix. La décision est prise par VOTRE
 Orchestrateur.vote_k_sur_n ; la référence n'est lue qu'après, pour comparer.
 
-A placer à côté de skeleton-multi-llm-en.py, puis :
-    python3 comparer_quorums.py --traces traces-td1.csv > tableau-vote.md
-    python3 comparer_quorums.py --traces traces-td1.csv --reference reference-td1.csv > tableau-vote.md
+Depuis la racine du dépôt, chemins par défaut indépendants du répertoire courant :
+    python td2/A-quorum/comparer_quorums.py
+    python td2/A-quorum/comparer_quorums.py --traces td1/traces-td1.csv --reference td1/reference-td1.csv
 """
 import argparse
 import csv
@@ -18,6 +18,8 @@ import importlib.util
 import sys
 from pathlib import Path
 from types import SimpleNamespace
+
+TD1 = Path(__file__).resolve().parents[2] / "td1"
 
 PANEL_FIXE = [  # identique à PANEL dans atelier-vote.py
     ("groq", "openai/gpt-oss-120b"),
@@ -132,9 +134,9 @@ def changement(d3, d5):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--traces", type=Path, default=Path("traces-td1.csv"))
-    p.add_argument("--reference", type=Path, help="reference-td1.csv (sinon colonne reference des traces)")
-    p.add_argument("--skeleton", type=Path, default=Path("skeleton-multi-llm-en.py"))
+    p.add_argument("--traces", type=Path, default=TD1 / "traces-td1.csv")
+    p.add_argument("--reference", type=Path, default=TD1 / "reference-td1.csv", help="reference-td1.csv (sinon colonne reference des traces)")
+    p.add_argument("--skeleton", type=Path, default=TD1 / "skeleton-multi-llm-en.py")
     p.add_argument("--nature", choices=["real", "replay", "simulation"], default="real")
     args = p.parse_args()
 

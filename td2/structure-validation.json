@@ -1,0 +1,23 @@
+{
+  "ok": true,
+  "python_version": "3.12.10",
+  "protected_files_unchanged": 23,
+  "td1_integrity": true,
+  "td1_regression_tests": "passed",
+  "sandbox_checks": 25,
+  "A_final_questions": 20,
+  "A_table_regenerated_identical": true,
+  "A_panel_matches_delivered": true,
+  "A_synthetic_cases": 4,
+  "A_rejects_duplicates_and_invalid_quorums": true,
+  "B_pair_A_checks": {
+    "2_of_3": "passed: Pair A vote_k_sur_n equals manual count",
+    "3_of_5": "passed: Pair A vote_k_sur_n equals manual count"
+  },
+  "C09_reference_and_each_delta_cents": 487980,
+  "broken_delivery_links": [],
+  "model_API_calls": 0,
+  "human_reviews": "À compléter",
+  "C_routing": "À compléter",
+  "TD3": "À compléter"
+}

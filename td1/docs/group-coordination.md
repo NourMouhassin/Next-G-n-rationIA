@@ -35,9 +35,9 @@ Pour lancer ensuite depuis ton terminal PowerShell VS Code déjà configuré,
 rester dans le dossier du kit et utiliser son environnement existant :
 
 ```powershell
-.\.venv\Scripts\python.exe submission\td1.py prepare
+.\.venv\Scripts\python.exe submission\td1\td1.py prepare
 # Remplacer LETTRE uniquement après attribution et configuration d'allocation.json :
-# .\.venv\Scripts\python.exe submission\td1.py run --member LETTRE
+# .\.venv\Scripts\python.exe submission\td1\td1.py run --member LETTRE
 ```
 
 Les clés sont héritées du terminal. Ne pas les afficher, les transmettre ou les

@@ -1,4 +1,135 @@
-# TD2 — Report
+# TD2 — Rapport du groupe
+
+Sections A et B reprises de leurs branches et adaptées à la structure du rendu.
+Revues humaines : À compléter ; C : À compléter.
+
+## Étape 1 — Vote k-sur-n (binôme A)
+
+### 1.1 La méthode `Orchestrateur.vote_k_sur_n`
+
+Implémentée dans `skeleton-multi-llm-en.py`, conformément au contrat de la docstring :
+
+1. seules les propositions `verdict == "executed"` qui portent une valeur votent ; un membre en erreur (HTTP 429, SQL invalide, absent) **reste compté dans n** mais ne vote pas ;
+2. `k` doit être une majorité stricte, `n // 2 < k <= n`, sinon `ValueError` ;
+3. deux propositions avec le même couple `(provider, model_requested)` sont refusées par `ValueError`, y compris si l'une est en erreur : un doublon n'est pas un second avis ;
+4. si une valeur atteint k voix : `{"consensus": True, "value": v, "votes": nombre, "models": ["provider:model_requested", ...]}` ;
+5. sinon : `{"consensus": False, "value": None, "votes": plus grand nombre de voix, "models": []}`. La méthode n'invente jamais de valeur.
+
+Comme `k > n // 2`, deux valeurs ne peuvent pas atteindre k en même temps (il faudrait 2k > n voix) : la boucle peut donc renvoyer la première valeur qui atteint k sans ambiguïté. La méthode ne reçoit jamais la référence.
+
+**Exemples synthétiques** (`python td2/A-quorum/atelier-vote.py`, nature `simulation`, n = 3, k = 2, référence 100) :
+
+| Exemple | Propositions | Décision | Conforme à la référence |
+|---|---|---|---|
+| agreement | 100, 100, 120 | consensus 100 (2 voix) | oui |
+| disagreement | 100, 110, 120 | abstention (max 1) | sans objet |
+| unavailable | 100, erreur, erreur | abstention (max 1) | sans objet |
+| wrong consensus | 0, 0, 100 | consensus 0 (2 voix) | **non** |
+
+Le dernier exemple montre la limite du vote : une majorité d'accord sur une valeur fausse l'emporte.
+
+### 1.2 Protocole de la comparaison
+
+- **Données** : `traces-td1.csv`, 104 lignes, toutes `nature = real`, batch du 2026-10-21, cinq modèles. Export chronologique unique (dates croissantes), donc la dernière ligne d'un modèle sur une question est bien sa dernière tentative. `qwen/qwen3.8-27b` a 24 lignes au lieu de 20 : nouvelles tentatives après HTTP 429 sur C16, C18, C19 et C20.
+- **Configurations** : panel fixe 2-sur-3 (`groq:openai/gpt-oss-120b`, `openrouter:cohere/north-mini-code:free`, `groq:qwen/qwen3.8-27b`, k = 2) ; quorum 3-sur-5 sur les cinq modèles (+ `openrouter:dots-studio/dots-3-note-preview:free`, `groq:openai/gpt-oss-20b`, k = 3).
+- **Décision** : toujours prise par notre `vote_k_sur_n`. Une proposition vote si son verdict TD 1 est `correct` ou `incorrect` avec une valeur (même règle que `atelier-vote.py`) ; `not_executed` et `sql_invalid` restent dans n sans voix. La référence n'est lue qu'**après** la décision.
+- **Référence** : `reference-td1.csv` (20 requêtes SQL écrites sans modèle et leurs valeurs `revenue_cents`). Les 20 valeurs sont identiques à la colonne `reference` des traces, chargée depuis ce même fichier au moment du batch TD 1 : aucune incohérence signalée par le script.
+- **Contrôle croisé** : les 20 décisions 2-sur-3 de notre script sont identiques à celles de `atelier-vote.py --traces td1/traces-td1.csv --case Cxx` lancé question par question.
+- **Reproduire** : `python td2/A-quorum/comparer_quorums.py`
+
+### 1.3 Tableau des vingt décisions
+
+| Question | Référence | 2-sur-3 (panel fixe) | Accord | 3-sur-5 (5 modèles) | Accord | Changement |
+|---|---|---|---|---|---|---|
+| C01 | 792800 | consensus 792800 (3/3) | ✅ = réf. | consensus 792800 (5/5) | ✅ = réf. | — |
+| C02 | 590320 | consensus 590320 (2/3) | ✅ = réf. | abstention (max 2/5) | ⏸ abstention | consensus → abstention |
+| C03 | 936350 | consensus 936350 (3/3) | ✅ = réf. | consensus 936350 (5/5) | ✅ = réf. | — |
+| C04 | 2826250 | consensus 2826250 (3/3) | ✅ = réf. | consensus 2826250 (5/5) | ✅ = réf. | — |
+| C05 | 38480 | consensus 38480 (3/3) | ✅ = réf. | consensus 38480 (5/5) | ✅ = réf. | — |
+| C06 | 0 | consensus 0 (3/3) | ✅ = réf. | consensus 0 (5/5) | ✅ = réf. | — |
+| C07 | 13970 | consensus 13970 (3/3) | ✅ = réf. | consensus 13970 (5/5) | ✅ = réf. | — |
+| C08 | 605580 | consensus 605580 (2/3) | ✅ = réf. | consensus 605580 (3/5) | ✅ = réf. | — |
+| C09 | 487980 | consensus 0 (2/3) | ❌ faux consensus | consensus 0 (3/5) | ❌ faux consensus | — |
+| C10 | 558980 | consensus 558980 (2/3) | ✅ = réf. | consensus 558980 (3/5) | ✅ = réf. | — |
+| C11 | 446690 | consensus 446690 (2/3) | ✅ = réf. | abstention (max 2/5) | ⏸ abstention | consensus → abstention |
+| C12 | 1666490 | consensus 1666490 (3/3) | ✅ = réf. | consensus 1666490 (5/5) | ✅ = réf. | — |
+| C13 | 107740 | consensus 107740 (3/3) | ✅ = réf. | consensus 107740 (5/5) | ✅ = réf. | — |
+| C14 | 0 | consensus 0 (3/3) | ✅ = réf. | consensus 0 (5/5) | ✅ = réf. | — |
+| C15 | 168680 | abstention (max 1/3) | ⏸ abstention | abstention (max 2/5) | ⏸ abstention | — |
+| C16 | 376740 | consensus 376740 (2/3) | ✅ = réf. | consensus 376740 (4/5) | ✅ = réf. | — |
+| C17 | 258180 | abstention (max 1/3) | ⏸ abstention | abstention (max 2/5) | ⏸ abstention | — |
+| C18 | 62480 | consensus 62480 (2/3) | ✅ = réf. | consensus 62480 (3/5) | ✅ = réf. | — |
+| C19 | 1990 | abstention (max 1/3) | ⏸ abstention | consensus 1990 (3/5) | ✅ = réf. | abstention → consensus |
+| C20 | 1106090 | consensus 1106090 (3/3) | ✅ = réf. | consensus 1106090 (5/5) | ✅ = réf. | — |
+
+**Bilan** : 2-sur-3 → ⏸ abstention : 3, ✅ = réf. : 16, ❌ faux consensus : 1 ; 3-sur-5 → ⏸ abstention : 4, ✅ = réf. : 15, ❌ faux consensus : 1
+
+### 1.4 Dernière tentative de chaque modèle
+
+| Question | Référence | gpt-oss-120b (groq) | north-mini-code:free (openrouter) | qwen3.8-27b (groq) | dots-3-note-preview:free (openrouter) | gpt-oss-20b (groq) |
+|---|---|---|---|---|---|---|
+| C01 | 792800 | 792800 (correct) | 792800 (correct) | 792800 (correct) | 792800 (correct) | 792800 (correct) |
+| C02 | 590320 | 590320 (correct) | 2606320 (incorrect) | 590320 (correct) | 0 (incorrect) | 0 (incorrect) |
+| C03 | 936350 | 936350 (correct) | 936350 (correct) | 936350 (correct) | 936350 (correct) | 936350 (correct) |
+| C04 | 2826250 | 2826250 (correct) | 2826250 (correct) | 2826250 (correct) | 2826250 (correct) | 2826250 (correct) |
+| C05 | 38480 | 38480 (correct) | 38480 (correct) | 38480 (correct) | 38480 (correct) | 38480 (correct) |
+| C06 | 0 | 0 (correct) | 0 (correct) | 0 (correct) | 0 (correct) | 0 (correct) |
+| C07 | 13970 | 13970 (correct) | 13970 (correct) | 13970 (correct) | 13970 (correct) | 13970 (correct) |
+| C08 | 605580 | 605580 (correct) | 1188090 (incorrect) | 605580 (correct) | 25920 (incorrect) | 605580 (correct) |
+| C09 | 487980 | 487980 (correct) | 0 (incorrect) | 0 (incorrect) | 0 (incorrect) | 487980 (correct) |
+| C10 | 558980 | 558980 (correct) | 119410 (incorrect) | 558980 (correct) | 119410 (incorrect) | 558980 (correct) |
+| C11 | 446690 | 446690 (correct) | 0 (incorrect) | 446690 (correct) | 0 (incorrect) | 322160 (incorrect) |
+| C12 | 1666490 | 1666490 (correct) | 1666490 (correct) | 1666490 (correct) | 1666490 (correct) | 1666490 (correct) |
+| C13 | 107740 | 107740 (correct) | 107740 (correct) | 107740 (correct) | 107740 (correct) | 107740 (correct) |
+| C14 | 0 | 0 (correct) | 0 (correct) | 0 (correct) | 0 (correct) | 0 (correct) |
+| C15 | 168680 | 68670 (incorrect) | 314020 (incorrect) | 0 (incorrect) | 168680 (correct) | 168680 (correct) |
+| C16 | 376740 | 376740 (correct) | 376740 (correct) | not_executed | 376740 (correct) | 376740 (correct) |
+| C17 | 258180 | 258180 (correct) | 0 (incorrect) | 248490 (incorrect) | sql_invalid | 258180 (correct) |
+| C18 | 62480 | 62480 (correct) | 286650 (incorrect) | 62480 (correct) | 39580 (incorrect) | 62480 (correct) |
+| C19 | 1990 | 1990 (correct) | 0 (incorrect) | 83580 (incorrect) | 1990 (correct) | 1990 (correct) |
+| C20 | 1106090 | 1106090 (correct) | 1106090 (correct) | 1106090 (correct) | 1106090 (correct) | 1106090 (correct) |
+
+### 1.5 Questions où la décision change entre 2-sur-3 et 3-sur-5
+
+**C02** (âge exact 25 ans au 2026-09-25, toutes commandes ; référence 590320) — *consensus correct → abstention.*
+Dans le panel, `gpt-oss-120b` et `qwen3.8-27b` donnent 590320, `north-mini-code` donne 2606320 : consensus correct à 2/3. Au 3-sur-5, `dots-3-note-preview` et `gpt-oss-20b` donnent tous deux **0** (valeur fausse partagée). Les voix se répartissent 590320 : 2, 0 : 2, 2606320 : 1 ; aucune valeur n'atteint 3, d'où l'abstention. La valeur fausse partagée ne gagne pas, mais elle égale la bonne et bloque le consensus.
+
+**C11** (âge exact 25 ans au 2026-12-01, toutes commandes ; référence 446690) — *consensus correct → abstention.*
+Panel : `gpt-oss-120b` et `qwen3.8-27b` donnent 446690, `north-mini-code` donne 0 : consensus correct à 2/3. Au 3-sur-5, `dots-3-note-preview` donne aussi **0** (même valeur fausse que `north-mini-code`) et `gpt-oss-20b` donne 322160. Répartition : 446690 : 2, 0 : 2, 322160 : 1, donc abstention.
+
+**C19** (produit d, période septembre 2026, âge exact 25 ans au 2026-09-25 ; référence 1990) — *abstention → consensus correct.*
+Panel : trois valeurs différentes, 1990 (`gpt-oss-120b`), 0 (`north-mini-code`), 83580 (`qwen3.8-27b`, obtenue à la 2e tentative après un HTTP 429) : abstention à 1/3. Au 3-sur-5, `dots-3-note-preview` et `gpt-oss-20b` donnent 1990 : la valeur atteint 3/5, consensus correct.
+
+### 1.6 Décision identique, marge modifiée
+
+- **C16** (référence 376740) : `qwen3.8-27b` est `not_executed` après deux HTTP 429. Il reste dans n = 3 sans voter : le consensus 2/3 (`gpt-oss-120b`, `north-mini-code`) est obtenu **au seuil exact**. Une erreur de plus et le panel s'abstenait. Au 3-sur-5, la marge remonte à 4/5.
+- **C17** (référence 258180) : abstention dans les deux configurations. Au 3-sur-5, `dots-3-note-preview` renvoie un SQL invalide (`syntax_error near "AS"`) : il reste dans n = 5 sans voter. La bonne valeur ne réunit que 2 voix (`gpt-oss-120b`, `gpt-oss-20b`), sous le seuil de 3.
+- **C15** (référence 168680) : les trois membres du panel se trompent avec trois valeurs différentes (68670, 314020, 0). L'abstention **protège** ici d'une erreur. Au 3-sur-5, la bonne valeur arrive en tête (`dots-3-note-preview`, `gpt-oss-20b`) mais avec 2 voix, sous le seuil : toujours abstention.
+- **C18** (référence 62480) : `qwen3.8-27b` réussit à sa 2e tentative après un HTTP 429 ; c'est cette dernière tentative qui vote et donne le consensus 2/3. Sans cette relance, le panel se serait abstenu (1/3).
+- **C10** (âge au moment de la commande ; référence 558980) : `north-mini-code` et `dots-3-note-preview` partagent la valeur fausse **119410** ; elle est mise en minorité (1/3 dans le panel, 2/5 au 3-sur-5). Consensus correct dans les deux cas.
+
+### 1.7 Consensus erroné dans notre batch : C09 (transmis au binôme B)
+
+**C09** (âge exact 25 ans au 2026-09-26, toutes commandes ; référence 487980). `north-mini-code`, `qwen3.8-27b` et `dots-3-note-preview` renvoient tous **0**. Seuls `gpt-oss-120b` et `gpt-oss-20b` donnent 487980.
+
+- 2-sur-3 : consensus sur **0** (`north-mini-code` + `qwen3.8-27b`), faux.
+- 3-sur-5 : consensus sur **0** (+ `dots-3-note-preview`), faux, avec une voix de plus.
+
+Agrandir le quorum ne corrige pas une erreur partagée par une majorité ; ici il la confirme. La cause SQL (requêtes qui renvoient 0) est analysée à l'étape 2.
+
+### 1.8 Ce que nous en concluons
+
+- **Bilan** : 2-sur-3 → 16 corrects, 1 faux consensus (C09), 3 abstentions (C15, C17, C19). 3-sur-5 → 15 corrects, 1 faux consensus (C09), 4 abstentions (C02, C11, C15, C17).
+- **Le 3-sur-5 n'est pas meilleur sur ce batch** : il gagne C19, perd C02 et C11 (consensus corrects devenus abstentions) et ne corrige pas C09. Une abstention est sûre (pas de mauvaise valeur), mais elle a un coût : il faut alors une référence ou une revue humaine.
+- **Les erreurs sont toutes sur les questions d'âge** : les dix questions de période et de produits seuls (C01, C03 à C07, C12 à C14, C20) sont unanimes 5/5 et correctes ; tous les désaccords et le faux consensus concernent l'âge (C02, C08 à C11, C15 à C19). Sur les questions simples, le vote coûte sans rien apporter ; sur les questions d'âge, il ne suffit pas toujours.
+- **Les votants ne sont pas indépendants** : `north-mini-code` et `dots-3-note-preview` partagent la même valeur fausse sur C09, C10 et C11. Et `gpt-oss-120b` / `gpt-oss-20b` appartiennent à la même famille : le quorum 3-sur-5 ne réunit donc pas cinq familles distinctes, contrairement au panel fixe.
+- **Limites** : 20 questions et un seul batch. Ces chiffres sont une observation sur ce batch, pas un taux d'erreur général, un classement durable ni une garantie d'erreur du quorum.
+
+### 1.9 Contribution du binôme A
+
+- [Nom 1] : …
+- [Nom 2] : …
+
 
 ## Step 2 — The wrong consensus
 
@@ -8,7 +139,7 @@ the pair's personal review remains pending. This section covers Step 2 only.
 Source: [official TD2, Step 2](https://storage.googleapis.com/docs.g.quanticfactory.io/ESILV/next-generation-ai/latest/students/kit-td1/enonce-td2-en.html#section-7),
 pack `2026-11-18-students-5`. Base commit:
 `52a8fcf9db349fa87a7e55848d56a579d929c7b4`; the exact source file hashes are
-recorded in [C09-evidence.json](../evidence/td2-binome-B/C09-evidence.json).
+recorded in [C09-evidence.json](../td2/B-consensus/evidence/C09-evidence.json).
 
 ### Real case and final proposals
 
@@ -27,11 +158,11 @@ eligible birth dates satisfy **2000-09-26 < birth_date <= 2001-09-26**.
 
 | Model (provider) | Value, cents | TD1 verdict | Original trace, attempt 1 |
 |---|---:|---|---|
-| GPT-OSS 120B (Groq) | 487980 | correct | [state-A.jsonl, line 5](../runs/state-A.jsonl#L5) |
-| GPT-OSS 20B (Groq) | 487980 | correct | [state-B.jsonl, line 9](../runs/state-B.jsonl#L9) |
-| Cohere north-mini-code (OpenRouter) | 0 | incorrect | [state-C.jsonl, line 9](../runs/state-C.jsonl#L9) |
-| Qwen3.8-27B (Groq) | 0 | incorrect | [state-D.jsonl, line 9](../runs/state-D.jsonl#L9) |
-| Dots3-Note Preview (OpenRouter) | 0 | incorrect | [state-E.jsonl, line 9](../runs/state-E.jsonl#L9) |
+| GPT-OSS 120B (Groq) | 487980 | correct | [state-A.jsonl, line 5](../td1/runs/state-A.jsonl#L5) |
+| GPT-OSS 20B (Groq) | 487980 | correct | [state-B.jsonl, line 9](../td1/runs/state-B.jsonl#L9) |
+| Cohere north-mini-code (OpenRouter) | 0 | incorrect | [state-C.jsonl, line 9](../td1/runs/state-C.jsonl#L9) |
+| Qwen3.8-27B (Groq) | 0 | incorrect | [state-D.jsonl, line 9](../td1/runs/state-D.jsonl#L9) |
+| Dots3-Note Preview (OpenRouter) | 0 | incorrect | [state-E.jsonl, line 9](../td1/runs/state-E.jsonl#L9) |
 
 The two diagnosed trace IDs are **`groq:qwen/qwen3.8-27b:C09`** (attempt 1,
 `2026-10-21 12:50:05` UTC) and **`openrouter:cohere/north-mini-code:free:C09`**
@@ -50,18 +181,18 @@ answer still votes: the voting algorithm cannot use the reference as an oracle.
 An error without a value stays in the panel denominator, without a vote; none
 of the five C09 proposals has such an error.
 
-Pair A's `Orchestrateur.vote_k_sur_n` still raises `NotImplementedError` in the
-available source. Verification against that method is **pending**, not passed.
-The diagnostic script calls it for both panels on every run: when A delivers it,
-rerun the command below; a difference from the manual counts fails an assertion.
-Pair B does not implement or edit Pair A's voting method.
+Pair A's delivered `Orchestrateur.vote_k_sur_n` is now loaded from
+`td1/skeleton-multi-llm-en.py`. Both comparisons **pass**: the method returns
+0 with 2 voices for 2/3, and 0 with 3 voices for 3/5. The diagnostic script
+asserts equality with the manual results on each run; this is a technical check,
+not a completed human review.
 
 ### Complete faulty queries and exact causes
 
 These blocks reproduce the complete SQL from the two CSV trace fields, also
 saved verbatim in the linked `.sql` files. Both execute successfully and return 0.
 
-**Qwen — [original SQL](../sql/td2-binome-B/C09-qwen-original.sql)**
+**Qwen — [original SQL](../td2/B-consensus/sql/C09-qwen-original.sql)**
 
 ```sql
 SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
@@ -81,7 +212,7 @@ first predicate incorrectly evaluates age at `o.date` instead of `2026-09-26`;
 removing only the contradictory predicate would not fully fix C09. The joins are
 correct key joins; the error is in the WHERE, not a lost or duplicated join.
 
-**Cohere — [original SQL](../sql/td2-binome-B/C09-cohere-original.sql)**
+**Cohere — [original SQL](../td2/B-consensus/sql/C09-cohere-original.sql)**
 
 ```sql
 SELECT COALESCE(SUM(o.quantity_product * p.price), 0) AS revenue_cents
@@ -109,14 +240,14 @@ for the right reference day, but it is applied to the wrong leading expression.
 The joins are again correct. The required expression is
 `2026 - birth_year - (birthday_month_day > '09-26') = 25`.
 
-The [executed original reference SQL](../sql/td2-binome-B/C09-reference.sql)
+The [executed original reference SQL](../td2/B-consensus/sql/C09-reference.sql)
 uses that completed-age expression on `2026-09-26`, sums quantity times unit
 price over all qualifying order lines and returns 487980 cents. It introduces
 no order-period filter and returns zero rather than NULL for an empty selection.
 
 ### Row-preserving SQL delta and independent check
 
-[C09-delta.sql](../sql/td2-binome-B/C09-delta.sql) replaces only the aggregate
+[C09-delta.sql](../td2/B-consensus/sql/C09-delta.sql) replaces only the aggregate
 projection of each original query with order-line columns, retaining its full
 FROM/JOIN/WHERE. It compares the reference and each faulty selection by
 **(order_id, product_id)**, the order-line primary key, using two anti-joins
@@ -126,7 +257,7 @@ difference type, customer_id, order_id, product_id, order date, birth date,
 quantity, price and revenue in cents. Execution uses the supplied read-only
 sandbox with a larger result-row cap for this diagnostic SELECT only.
 
-[C09-delta.csv](../evidence/td2-binome-B/C09-delta.csv) contains 136 diagnostic
+[C09-delta.csv](../td2/B-consensus/evidence/C09-delta.csv) contains 136 diagnostic
 rows: the same 68 genuinely omitted sales listed once for each faulty model.
 Do **not** add the two model deltas together as though they were different sales.
 
@@ -152,11 +283,11 @@ Database, input CSV and reference hashes are unchanged after execution.
 From the original `kit-td1` directory, reproduce without network or API keys:
 
 ```powershell
-.\.venv\Scripts\python.exe submission\td2_wrong_consensus.py
+.\.venv\Scripts\python.exe submission\td2\B-consensus\td2_wrong_consensus.py
 ```
 
 From a clone root, use its available Python 3.12 interpreter on
-`td2_wrong_consensus.py`. The script refreshes only Pair B evidence/SQL, validates
+`td2/B-consensus/td2_wrong_consensus.py`. The script refreshes only Pair B evidence/SQL, validates
 the two raw queries, reference, detailed delta, CSV arithmetic and vote-method
 comparison when available. It does not regenerate TD1 or other pairs' sections.
 
@@ -168,5 +299,10 @@ reference/data check is needed to detect this shared wrong answer.
 - Read both original WHERE clauses and explain why changing only Qwen's date is insufficient.
 - Recount both panels, including Dots only in 3/5; distinguish an incorrect vote from an unavailable proposal.
 - Inspect several (order_id, product_id) delta rows and the six customer subtotals against the CSVs.
-- After A delivers `vote_k_sur_n`, rerun and require both `pair_A_check` fields to say passed.
+- Inspect the two successful `pair_A_check` results against the delivered A method; personal review remains pending.
 - Confirm the pair's review and merge only this Step 2 section with the other pairs' work.
+
+
+## Step 3 — Routing
+
+**À compléter.** Voir [C-routing](../td2/C-routing/README.md).

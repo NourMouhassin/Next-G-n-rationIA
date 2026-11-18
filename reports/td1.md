@@ -1,7 +1,7 @@
 # TD1 — Partial experimental report, 21 October 2026
 
 Class / subgroup: **to complete**. Members: **to complete**.
-Contributions: [contributions.csv](contributions.csv).
+Contributions: [contributions.csv](../td1/reports/contributions.csv).
 
 ## Objective and current result
 
@@ -22,15 +22,15 @@ are executed (lots A, B, C, D), 84 real attempts including 4 retries**. Lot E
 Counts are on these twenty questions only: no general error rate and no ranking.
 Every wrong answer concerns the **age convention** (age on a reference date or at
 the order); period and product-only questions are 100 % correct for the four models.
-Raw files: `runs/state-A.jsonl` to `runs/state-D.jsonl` and their CSV exports,
-merged in [traces-td1.csv](../traces-td1.csv) / [traces-td1.jsonl](../traces-td1.jsonl).
+Raw files: `td1/runs/state-A.jsonl` to `td1/runs/state-D.jsonl` and their CSV exports,
+merged in [traces-td1.csv](../td1/traces-td1.csv) / [traces-td1.jsonl](../td1/traces-td1.jsonl).
 
 ## R1: executed references and independent checking
 
-[reference-td1.csv](../reference-td1.csv) holds every executable SELECT and integer
-result. [evidence/reference-check.csv](../evidence/reference-check.csv) gives the
+[reference-td1.csv](../td1/reference-td1.csv) holds every executable SELECT and integer
+result. [evidence/reference-check.csv](../td1/evidence/reference-check.csv) gives the
 SQLite value, separate CSV total and number of selected order lines for all cases.
-[build_references.py](../build_references.py) contains both methods:
+[build_references.py](../td1/build_references.py) contains both methods:
 
 1. SQL joins order lines to products/customers, sums `quantity_product * price`
    in integer cents excluding VAT, and returns `COALESCE(..., 0)` with alias
@@ -56,17 +56,17 @@ Examples useful for the demonstration:
   birthday boundaries change membership. C10: 558980 cents with age at the order.
 - C19: 1990 cents from one line after period, age and product-d filters.
 
-[Integrity evidence](../evidence/data-check.json) matches all distributed hashes,
+[Integrity evidence](../td1/evidence/data-check.json) matches all distributed hashes,
 SQLite integrity and foreign keys. Database hash remains
 `0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2`.
 No instructor answer key was accessed. Equality with that private key is not claimed.
 Both implementations were developed with Codex; this is an independent computation
 method, **not a human peer review**. The named second-member review of every question
-is still pending in [reference-review.csv](reference-review.csv).
+is still pending in [reference-review.csv](../td1/reports/reference-review.csv).
 
 ## R2: protocol and evidence status
 
-The official skeleton, sandbox and model JSON are reused. [td1.py](../td1.py)
+The official skeleton, sandbox and model JSON are reused. [td1.py](../td1/td1.py)
 adds a small assigned-lot wrapper, consolidation and terminal pivot. Execution
 requires declared account allocation, Free plan, current quota, consumed controls
 and group handover. No API generation call was made during preparation. The
@@ -88,7 +88,7 @@ resume when a 429 had no permitted delay; wait conservatively on resumed retries
 retry only authorized temporary errors; retain missing replay latency as empty.
 No TD2 vote logic was implemented.
 
-[prompts-en.md](../prompts-en.md) contains the exact prepared messages and all
+[prompts-en.md](../td1/prompts-en.md) contains the exact prepared messages and all
 twenty expanded user messages, identical across models. SHA-256 hashes
 `system + newline + user` in UTF-8. Real use of those prompts will be evidenced by
 the per-attempt fingerprint. The runner saves every attempt before retrying;
@@ -98,15 +98,15 @@ spelling for simulated data; it and replay are excluded from real comparison rat
 
 ### Real batch of 21 October 2026 (lots A to D)
 
-Lots A to D were run with the unmodified kit skeleton (`skeleton-multi-llm-en.py`
+Lots A to D were run with the unmodified kit skeleton (`td1/skeleton-multi-llm-en.py`
 of pack 2026-10-18, before the corrections above), one operator at a time, from
 the member's own terminal, keys in environment variables only. The prompt and the
-references are identical to this repository's, which `td1.py consolidate` asserts
+references are identical to this repository's, which `td1/td1.py consolidate` asserts
 on every line (same `prompt_sha256` per question, same reference). These traces
 therefore lack the `response_text`, `raw_response` and `finish_reason` columns,
 which stay empty: a missing measurement, not a zero.
 
-- **Selected trace (R2)**: `groq:qwen/qwen3.8-27b:C18`, [runs/state-D.jsonl](../runs/state-D.jsonl).
+- **Selected trace (R2)**: `groq:qwen/qwen3.8-27b:C18`, [runs/state-D.jsonl](../td1/runs/state-D.jsonl).
   Attempt 1: HTTP 429 "Rate limit reached ... output tokens per minute (OTPM): Limit
   1000", no SQL, no `Retry-After` header (empty field). Attempt 2 after the
   temporary-error delay: HTTP 200, value 62480 = reference, verdict correct.
@@ -120,14 +120,14 @@ which stay empty: a missing measurement, not a zero.
   (HTTP 401 on all 20 cells, no SQL evaluated), one of them launched from a second
   terminal while the valid run was in progress, breaking the one-request-at-a-time
   rule for about one minute. Those 40 attempts are kept unedited, separated by run,
-  in [runs/failed-access/](../runs/failed-access/), outside consolidation. The
+  in [runs/failed-access/](../td1/runs/failed-access/), outside consolidation. The
   valid run's 16 lines were separated from the interleaved 401 lines without edits,
   then C01 to C04 were run in the valid experiment.
 
 ## R3: analysis and model portfolio
 
 Causes are read from the returned SQL or the HTTP status of the latest attempt,
-written in [td1-causes.csv](td1-causes.csv) and copied by `td1.py consolidate` into
+written in [td1-causes.csv](../td1/reports/td1-causes.csv) and copied by `td1/td1.py consolidate` into
 the `explanation` column of the comparison. Examples:
 
 - **Wrong answer, valid SQL** — `groq:openai/gpt-oss-120b:C15`: the filter
@@ -155,14 +155,14 @@ convention failed. If the real batch has no failure, request the explicitly
 identified example supplied by the instructor for the R3 demonstration.
 Offline mocked tests are engineering tests, not instructor examples or experiment results.
 
-[five-model-summary-en.csv](../five-model-summary-en.csv) contains the five exact
+[five-model-summary-en.csv](../td1/five-model-summary-en.csv) contains the five exact
 configured models. The supplied template's stale Ling model was replaced by
 Cohere to match the official JSON. Public indices 11.6, 9 and 33.7 for GPT-OSS
 120B, GPT-OSS 20B and Qwen come from the course portfolio dated 28 September 2026;
 the source does not identify the benchmark version, which limits interpretation.
 Cohere/Dots indices are N/A because they are absent from that portfolio.
 
-The [public catalog snapshot](../docs/paid-route-snapshot.json), retrieved on
+The [public catalog snapshot](../td1/docs/paid-route-snapshot.json), retrieved on
 21 October 2026 from the OpenRouter models endpoint without a key, documents
 exact paid routes: GPT-OSS 120B 0.15/0.60, GPT-OSS 20B 0.018/0.09, and Qwen
 0.04/1.35 USD per million input/output tokens. These are catalog prices, not
@@ -179,8 +179,8 @@ the sandbox could not access the installed Python 3.12, which was verified to ex
 outside it. The user's environment was not replaced. Tests cover
 retry policy, persistence, resume, exact free-route parameters, raw responses,
 missing metrics, output shape and comparison uniqueness. See
-[evidence/validation.json](../evidence/validation.json) and
-[sandbox-tests.json](../evidence/sandbox-tests.json).
+[evidence/validation.json](../td1/evidence/validation.json) and
+[sandbox-tests.json](../td1/evidence/sandbox-tests.json).
 
 Remaining tasks: name group/members and record contributions; obtain human R1
 cross-check; run lot E with a second member's OpenRouter account and import its
@@ -193,6 +193,6 @@ report must not be presented as completion of R2/R3 or all 100 calls.
 
 Codex assisted with local development, SQL formulation, independent CSV verification,
 tests and documentation. Values came from actual execution, not an AI numeric answer.
-The [verbatim development prompt](../docs/development-prompt.txt) is retained.
+The [verbatim development prompt](../td1/docs/development-prompt.txt) is retained.
 No member's review, contribution or experimental result is fabricated. Students
 remain responsible for understanding and explaining every submitted line.

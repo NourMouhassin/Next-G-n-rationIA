@@ -1,5 +1,10 @@
 * text=auto eol=lf
 # These original bytes are authenticated by the distributed manifest.
-data/* -text
-schema.sql -text
-docs/development-prompt.txt -text -whitespace
+td1/data/* -text
+td1/schema.sql -text
+td1/docs/development-prompt.txt -text -whitespace
+
+# Preserve original attempt files, including whitespace in SQL.
+td1/runs/** -text -whitespace
+td1/traces-td1.csv -text -whitespace
+td1/traces-td1.jsonl -text -whitespace

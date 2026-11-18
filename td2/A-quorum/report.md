@@ -12,7 +12,7 @@ Implémentée dans `skeleton-multi-llm-en.py`, conformément au contrat de la do
 
 Comme `k > n // 2`, deux valeurs ne peuvent pas atteindre k en même temps (il faudrait 2k > n voix) : la boucle peut donc renvoyer la première valeur qui atteint k sans ambiguïté. La méthode ne reçoit jamais la référence.
 
-**Exemples synthétiques** (`python3 atelier-vote.py`, nature `simulation`, n = 3, k = 2, référence 100) :
+**Exemples synthétiques** (`python td2/A-quorum/atelier-vote.py`, nature `simulation`, n = 3, k = 2, référence 100) :
 
 | Exemple | Propositions | Décision | Conforme à la référence |
 |---|---|---|---|
@@ -29,8 +29,8 @@ Le dernier exemple montre la limite du vote : une majorité d'accord sur une val
 - **Configurations** : panel fixe 2-sur-3 (`groq:openai/gpt-oss-120b`, `openrouter:cohere/north-mini-code:free`, `groq:qwen/qwen3.8-27b`, k = 2) ; quorum 3-sur-5 sur les cinq modèles (+ `openrouter:dots-studio/dots-3-note-preview:free`, `groq:openai/gpt-oss-20b`, k = 3).
 - **Décision** : toujours prise par notre `vote_k_sur_n`. Une proposition vote si son verdict TD 1 est `correct` ou `incorrect` avec une valeur (même règle que `atelier-vote.py`) ; `not_executed` et `sql_invalid` restent dans n sans voix. La référence n'est lue qu'**après** la décision.
 - **Référence** : `reference-td1.csv` (20 requêtes SQL écrites sans modèle et leurs valeurs `revenue_cents`). Les 20 valeurs sont identiques à la colonne `reference` des traces, chargée depuis ce même fichier au moment du batch TD 1 : aucune incohérence signalée par le script.
-- **Contrôle croisé** : les 20 décisions 2-sur-3 de notre script sont identiques à celles de `atelier-vote.py --traces traces-td1.csv --case Cxx` lancé question par question.
-- **Reproduire** : `python3 comparer_quorums.py --traces traces-td1.csv --reference reference-td1.csv`
+- **Contrôle croisé** : les 20 décisions 2-sur-3 de notre script sont identiques à celles de `atelier-vote.py --traces td1/traces-td1.csv --case Cxx` lancé question par question.
+- **Reproduire** : `python td2/A-quorum/comparer_quorums.py`
 
 ### 1.3 Tableau des vingt décisions
 
