@@ -640,7 +640,41 @@ class Orchestrateur:
         families, and look in your traces for a case where several models agree
         on a wrong value.
         """
-        raise NotImplementedError("vote_k_sur_n: to implement in TD 2 (see the procedure in the docstring).")
+        def field(proposal, name):
+            # atelier-vote.py passes SimpleNamespace objects; dicts are accepted too.
+            return proposal[name] if isinstance(proposal, dict) else getattr(proposal, name)
+
+        n = len(traces_question)
+
+        # Rule 2: k must be a strict majority of n.
+        if not (n // 2 < k <= n):
+            raise ValueError(f"k={k} is not a strict majority for n={n} (need {n // 2} < k <= {n})")
+
+        # Rule 3: the same (provider, model_requested) pair cannot vote twice.
+        seen = set()
+        for proposal in traces_question:
+            key = (field(proposal, "provider"), field(proposal, "model_requested"))
+            if key in seen:
+                raise ValueError(f"duplicate proposal refused: {key[0]}:{key[1]}")
+            seen.add(key)
+
+        # Rule 1: only executed proposals carrying a value vote.
+        # An error or an unavailable member stays in n (counted above) but casts no vote.
+        ballots = {}  # value -> ["provider:model_requested", ...]
+        for proposal in traces_question:
+            value = field(proposal, "value")
+            if field(proposal, "verdict") == "executed" and value is not None:
+                member = f"{field(proposal, 'provider')}:{field(proposal, 'model_requested')}"
+                ballots.setdefault(value, []).append(member)
+
+        # Rule 4: a value reaching k votes wins. Since k > n // 2, at most one value can.
+        for value, members in ballots.items():
+            if len(members) >= k:
+                return {"consensus": True, "value": value, "votes": len(members), "models": members}
+
+        # Rule 5: otherwise abstain with the largest count. Never invent a value.
+        largest = max((len(members) for members in ballots.values()), default=0)
+        return {"consensus": False, "value": None, "votes": largest, "models": []}
 
 
 # ==========================================================================
