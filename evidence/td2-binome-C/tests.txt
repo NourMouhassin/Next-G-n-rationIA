@@ -15,6 +15,6 @@ test_undocumented_route_is_not_free (__main__.RoutingTests.test_undocumented_rou
 test_unseen_family_abstains (__main__.RoutingTests.test_unseen_family_abstains) ... ok
 
 ----------------------------------------------------------------------
-Ran 15 tests in 0.024s
+Ran 15 tests in 0.015s
 
 OK

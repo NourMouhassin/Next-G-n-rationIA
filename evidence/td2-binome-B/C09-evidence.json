@@ -142,7 +142,7 @@
         ]
       },
       "agrees_with_reference": false,
-      "pair_A_check": "pending: Pair A method raises NotImplementedError"
+      "pair_A_check": "passed: Pair A vote_k_sur_n equals manual count"
     },
     "3_of_5": {
       "panel": [
@@ -169,16 +169,16 @@
         ]
       },
       "agrees_with_reference": false,
-      "pair_A_check": "pending: Pair A method raises NotImplementedError"
+      "pair_A_check": "passed: Pair A vote_k_sur_n equals manual count"
     }
   },
   "source_sha256": {
     "traces-td1.csv": "647753a2100fd29c06b657f248a57d2cc2bde24887b7263678004d6414c0b028",
     "reference-td1.csv": "0f323c0100952c4b3c1371412f8050fd3a54c928e1ee45adc2e4bb515f317080",
-    "data\\boutique.sqlite": "0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2",
-    "data\\customers.csv": "f3053b6a89036a9cc426649798283b70dc882fc2d18034cde52e85614252100a",
-    "data\\orders.csv": "5c92d3c6d2797b1ee007144c8d4bf2e43b8883037d893339d680205204988452",
-    "data\\product.csv": "f4b41301a5bc3e03362215448d67d2439fc38352436c6b4cda57b9f2b5797e64"
+    "data/boutique.sqlite": "0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2",
+    "data/customers.csv": "f3053b6a89036a9cc426649798283b70dc882fc2d18034cde52e85614252100a",
+    "data/orders.csv": "5c92d3c6d2797b1ee007144c8d4bf2e43b8883037d893339d680205204988452",
+    "data/product.csv": "f4b41301a5bc3e03362215448d67d2439fc38352436c6b4cda57b9f2b5797e64"
   },
   "database_unchanged": true
 }
