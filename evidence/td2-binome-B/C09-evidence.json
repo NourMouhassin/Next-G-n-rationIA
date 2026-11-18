@@ -1,0 +1,184 @@
+{
+  "nature": "real TD1 batch; offline diagnostic",
+  "final_cells": 100,
+  "real_attempts": 104,
+  "reference_cents": 487980,
+  "proposals": [
+    {
+      "model": "groq:openai/gpt-oss-120b",
+      "cell_id": "groq:openai/gpt-oss-120b:C09",
+      "attempt": 1,
+      "date_utc": "2026-10-21 12:43:12",
+      "source": "runs/state-A.jsonl#L5",
+      "csv_record": 5,
+      "value_cents": 487980,
+      "verdict": "correct",
+      "prompt_sha256": "8a183ea0b704135aacad9681a454de5f091062bf148a3b9e43cbdec6c7cc8c19"
+    },
+    {
+      "model": "groq:openai/gpt-oss-20b",
+      "cell_id": "groq:openai/gpt-oss-20b:C09",
+      "attempt": 1,
+      "date_utc": "2026-10-21 12:48:00",
+      "source": "runs/state-B.jsonl#L9",
+      "csv_record": 29,
+      "value_cents": 487980,
+      "verdict": "correct",
+      "prompt_sha256": "8a183ea0b704135aacad9681a454de5f091062bf148a3b9e43cbdec6c7cc8c19"
+    },
+    {
+      "model": "openrouter:cohere/north-mini-code:free",
+      "cell_id": "openrouter:cohere/north-mini-code:free:C09",
+      "attempt": 1,
+      "date_utc": "2026-10-21 12:54:25",
+      "source": "runs/state-C.jsonl#L9",
+      "csv_record": 73,
+      "value_cents": 0,
+      "verdict": "incorrect",
+      "prompt_sha256": "8a183ea0b704135aacad9681a454de5f091062bf148a3b9e43cbdec6c7cc8c19"
+    },
+    {
+      "model": "groq:qwen/qwen3.8-27b",
+      "cell_id": "groq:qwen/qwen3.8-27b:C09",
+      "attempt": 1,
+      "date_utc": "2026-10-21 12:50:05",
+      "source": "runs/state-D.jsonl#L9",
+      "csv_record": 49,
+      "value_cents": 0,
+      "verdict": "incorrect",
+      "prompt_sha256": "8a183ea0b704135aacad9681a454de5f091062bf148a3b9e43cbdec6c7cc8c19"
+    },
+    {
+      "model": "openrouter:dots-studio/dots-3-note-preview:free",
+      "cell_id": "openrouter:dots-studio/dots-3-note-preview:free:C09",
+      "attempt": 1,
+      "date_utc": "2026-10-21 13:49:32",
+      "source": "runs/state-E.jsonl#L9",
+      "csv_record": 93,
+      "value_cents": 0,
+      "verdict": "incorrect",
+      "prompt_sha256": "8a183ea0b704135aacad9681a454de5f091062bf148a3b9e43cbdec6c7cc8c19"
+    }
+  ],
+  "shared_wrong_cases": [
+    {
+      "case_id": "C02",
+      "value": 0,
+      "cells": [
+        "groq:openai/gpt-oss-20b:C02",
+        "openrouter:dots-studio/dots-3-note-preview:free:C02"
+      ]
+    },
+    {
+      "case_id": "C09",
+      "value": 0,
+      "cells": [
+        "groq:qwen/qwen3.8-27b:C09",
+        "openrouter:cohere/north-mini-code:free:C09",
+        "openrouter:dots-studio/dots-3-note-preview:free:C09"
+      ]
+    },
+    {
+      "case_id": "C10",
+      "value": 119410,
+      "cells": [
+        "openrouter:cohere/north-mini-code:free:C10",
+        "openrouter:dots-studio/dots-3-note-preview:free:C10"
+      ]
+    },
+    {
+      "case_id": "C11",
+      "value": 0,
+      "cells": [
+        "openrouter:cohere/north-mini-code:free:C11",
+        "openrouter:dots-studio/dots-3-note-preview:free:C11"
+      ]
+    }
+  ],
+  "delta": {
+    "qwen": {
+      "omitted_cents": 487980,
+      "added_cents": 0,
+      "delta_cents": 487980,
+      "omitted_lines": 68,
+      "added_lines": 0,
+      "customers": 6,
+      "csv_reference_cents": 487980,
+      "csv_faulty_cents": 0,
+      "line_level_csv_match": true
+    },
+    "cohere": {
+      "omitted_cents": 487980,
+      "added_cents": 0,
+      "delta_cents": 487980,
+      "omitted_lines": 68,
+      "added_lines": 0,
+      "customers": 6,
+      "csv_reference_cents": 487980,
+      "csv_faulty_cents": 0,
+      "line_level_csv_match": true
+    }
+  },
+  "votes": {
+    "2_of_3": {
+      "panel": [
+        "groq:openai/gpt-oss-120b",
+        "openrouter:cohere/north-mini-code:free",
+        "groq:qwen/qwen3.8-27b"
+      ],
+      "k": 2,
+      "n": 3,
+      "counts": {
+        "487980": 1,
+        "0": 2
+      },
+      "manual": {
+        "consensus": true,
+        "value": 0,
+        "votes": 2,
+        "models": [
+          "groq:qwen/qwen3.8-27b",
+          "openrouter:cohere/north-mini-code:free"
+        ]
+      },
+      "agrees_with_reference": false,
+      "pair_A_check": "pending: Pair A method raises NotImplementedError"
+    },
+    "3_of_5": {
+      "panel": [
+        "groq:openai/gpt-oss-120b",
+        "groq:openai/gpt-oss-20b",
+        "openrouter:cohere/north-mini-code:free",
+        "groq:qwen/qwen3.8-27b",
+        "openrouter:dots-studio/dots-3-note-preview:free"
+      ],
+      "k": 3,
+      "n": 5,
+      "counts": {
+        "487980": 2,
+        "0": 3
+      },
+      "manual": {
+        "consensus": true,
+        "value": 0,
+        "votes": 3,
+        "models": [
+          "groq:qwen/qwen3.8-27b",
+          "openrouter:cohere/north-mini-code:free",
+          "openrouter:dots-studio/dots-3-note-preview:free"
+        ]
+      },
+      "agrees_with_reference": false,
+      "pair_A_check": "pending: Pair A method raises NotImplementedError"
+    }
+  },
+  "source_sha256": {
+    "traces-td1.csv": "647753a2100fd29c06b657f248a57d2cc2bde24887b7263678004d6414c0b028",
+    "reference-td1.csv": "0f323c0100952c4b3c1371412f8050fd3a54c928e1ee45adc2e4bb515f317080",
+    "data\\boutique.sqlite": "0077e235adc2ca647b484e3083c98a6d7cae3ef3655ce366a299caf13398fec2",
+    "data\\customers.csv": "f3053b6a89036a9cc426649798283b70dc882fc2d18034cde52e85614252100a",
+    "data\\orders.csv": "5c92d3c6d2797b1ee007144c8d4bf2e43b8883037d893339d680205204988452",
+    "data\\product.csv": "f4b41301a5bc3e03362215448d67d2439fc38352436c6b4cda57b9f2b5797e64"
+  },
+  "database_unchanged": true
+}
