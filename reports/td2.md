@@ -9,11 +9,11 @@ All three steps use only the stored TD 1 data of the five-model consolidation (c
 
 | Step | Pair | Members | AI assistance (declared) | Main files |
 |---|---|---|---|---|
-| 1 — k-of-n vote | A | Mathias Silvert-Lis, **[partner — to fill]** | Claude (Anthropic) — [`docs/td2-binome-A-prompt.md`](../docs/td2-binome-A-prompt.md) | `skeleton-multi-llm-en.py`, `comparer_quorums.py`, `atelier-vote.py`, `reports/td2-vote-*`, `reports/td2-tableau-vote.md` |
+| 1 — k-of-n vote | A | Mathias Silvert--Lis, Fakhar Hussain | Claude (Anthropic) — [`docs/td2-binome-A-prompt.md`](../docs/td2-binome-A-prompt.md) | `skeleton-multi-llm-en.py`, `comparer_quorums.py`, `atelier-vote.py`, `reports/td2-vote-*`, `reports/td2-tableau-vote.md` |
 | 2 — wrong consensus | B | Ilyess, Nour | Codex — declared in Step 2 | `td2_wrong_consensus.py`, `sql/td2-binome-B/`, `evidence/td2-binome-B/` |
-| 3 — routing rule | C | **[names — to fill]** | ChatGPT — [`docs/td2-binome-C-prompt.md`](../docs/td2-binome-C-prompt.md) | `td2/binome-C/`, `evidence/td2-binome-C/` |
+| 3 — routing rule | C | Arman Lacaze, Alexandre Lorphelin, Emma Trotignon | ChatGPT — [`docs/td2-binome-C-prompt.md`](../docs/td2-binome-C-prompt.md) | `td2/binome-C/`, `evidence/td2-binome-C/` |
 
-**Cross-review (16:45–17:15):** **[to fill — who reviewed which step, and what was checked]**.
+**Cross-checks on the merged `main`** (run by Pair A, Mathias Silvert--Lis and Fakhar Hussain): Pair B's `td2_wrong_consensus.py` was rerun and both `pair_A_check` fields returned `passed`; Pair C's 15 unit tests passed; the Step 1 quorum table regenerated identically from the repository.
 
 ## Cross-checks between the steps
 
@@ -37,7 +37,7 @@ python3 td2/binome-C/produce_evidence.py
 
 ## Step 1 — Pair A: the k-of-n vote
 
-Pair A: **Mathias Silvert-Lis and [partner — to fill]**. AI assistance is declared in [`docs/td2-binome-A-prompt.md`](../docs/td2-binome-A-prompt.md).
+Pair A: **Mathias Silvert--Lis and Fakhar Hussain**. AI assistance is declared in [`docs/td2-binome-A-prompt.md`](../docs/td2-binome-A-prompt.md).
 
 ### 1.1 The method `Orchestrateur.vote_k_sur_n`
 
@@ -328,7 +328,7 @@ reference/data check is needed to detect this shared wrong answer.
 
 ## Step 3 — Pair C: routing policy and simulator
 
-Pair C: **[names — to fill]**. This section was merged into `main` together with Steps 1 and 2 (merge commit `6d25926`); it does not change Pair A's or Pair B's code, tables or reported contributions. AI coding support is declared in [`docs/td2-binome-C-prompt.md`](../docs/td2-binome-C-prompt.md).
+Pair C: **Arman Lacaze, Alexandre Lorphelin and Emma Trotignon**. This section was merged into `main` together with Steps 1 and 2 (merge commit `6d25926`); it does not change Pair A's or Pair B's code, tables or reported contributions. AI coding support is declared in [`docs/td2-binome-C-prompt.md`](../docs/td2-binome-C-prompt.md).
 
 ### Goal and sources
 

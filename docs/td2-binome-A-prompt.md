@@ -2,7 +2,7 @@
 
 **Assistant:** Claude (Anthropic), in a claude.ai chat, 18 November 2026.
 
-**Requests from the student** (Mathias Silvert-Lis, summarised from French): explain the TD 2 assignment; do or guide Pair A's step; adapt the work to the uploaded `atelier-vote.py`, `skeleton-multi-llm-en.py`, `traces-td1.csv` and `reference-td1.csv`; give the Git commands to integrate it; assemble the group report from the three pairs' sections.
+**Requests from Pair A** (Mathias Silvert--Lis and Fakhar Hussain, summarised from French): explain the TD 2 assignment; do or guide Pair A's step; adapt the work to the uploaded `atelier-vote.py`, `skeleton-multi-llm-en.py`, `traces-td1.csv` and `reference-td1.csv`; give the Git commands to integrate it; assemble the group report from the three pairs' sections.
 
 ## What the assistant did
 
@@ -13,12 +13,14 @@
 
 **Correction during the work:** a first version of the method read proposals as dictionaries, whereas `atelier-vote.py` passes `SimpleNamespace` objects. It was corrected (attribute access, dictionaries still accepted) before any use on the real traces. The `models` format (`provider:model_requested`) was taken from the skeleton docstring.
 
-## What the student did
+## What the students did
 
-- Ran `atelier-vote.py` on his machine with the real kit, on the four official synthetic examples and on C01–C20, and checked every output.
+Mathias Silvert--Lis and Fakhar Hussain did all of the following together:
+
+- Ran `atelier-vote.py` with the real kit, on the four official synthetic examples and on C01–C20, and checked every output.
 - Generated the evidence files and checked that the quorum table regenerates identically from the repository alone.
 - Checked that `main` contains exactly the 104 traces analysed, created the `td2/binome-A-vote` branch, merged the A, B and C branches into `main` and pushed.
 
 ## Review
 
-The members of Pair A must be able to explain the method and every result in the report without assistance (individual quiz). Contribution and review of the second Pair A member: **[to fill]**.
+Both members of Pair A worked on every step together and reviewed every result in this section. They must be able to explain the method and every result without assistance (individual quiz).
